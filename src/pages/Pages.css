@@ -10,3 +10,7 @@
     background-color: var(--primary-bg-color);
     box-shadow: 0px 0px 20px 0px var(--dark-color);
 }
+
+.content__page{
+    overflow-y: auto;
+}
