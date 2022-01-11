@@ -1,21 +1,19 @@
 import React from 'react';
-import FormUser from '../../components/forms/user/FormUser';
+import FormDevice from '../../components/forms/devices/FormDevice';
 import NavBar from '../../components/ui/navbar/NavBar';
 
 import '../Pages.css'
-const Users = () => {
+const Devices = () => {
     return (
         <div className='container__page'>
             <NavBar />
             <div className="content__page">
-                <FormUser
-                    isEdit={false}
+                <FormDevice 
+                    isEdit={true}
                 />
-
-                {/* <ClientTable /> */}
             </div>
         </div>
     );
 }
  
-export default Users;
+export default Devices;
