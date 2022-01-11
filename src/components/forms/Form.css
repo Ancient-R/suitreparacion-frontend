@@ -1,0 +1,162 @@
+.form__container--login,
+.form,
+.form__field,
+.form__container--input,
+.form__icon{
+    display: flex;
+}
+
+.form__container--login{
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--light-color);
+}
+
+.form__login{
+    width: 550px;
+    height: 450px;
+    padding: 0.5rem 3rem;
+    border-radius: 10px;
+}
+
+.form__field{
+    align-items: center;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.form__label{
+    flex: 0 0 150px;
+    margin-bottom: 3px;
+}
+
+.form__container--input{
+    align-items: center;
+    width: 100%;
+}
+
+.form__input,
+.form__submit,
+.form__icon{
+    padding: 0.5rem;
+    outline: none;
+    border-radius: 3px;
+}
+
+.form__input{
+    flex: 1;
+    border: 1px solid gray;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+.form__field--submit{
+    height: 40px;
+    width: 100%;
+    position: relative;
+    margin-top: 30px;
+}
+
+.form__submit{
+    border: none;
+    position: relative;
+    left: 33%;
+    width: 67%;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity .5s ease;
+    background-color: var(--element-color);
+    color: var(--light-color);
+}
+
+.form__icon{
+    width: 35px;
+    justify-content: center;
+    padding: 0.53rem;
+    cursor: pointer;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: var(--element-color);
+    color: var(--light-color);
+}
+
+.icon-hide{
+    opacity: 0;
+    display: none;
+}
+
+.icon-show{
+    opacity: 1;
+    display: block;
+}
+
+.fadein{
+    animation: fadein 2s;
+}
+
+@keyframes fadein{
+    0%{ 
+        opacity: 0.4;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+/* Estilos formulario FormUser.js FormClient.js FormDevice.js*/
+.form__user{
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+    padding: 2rem;
+    position: relative;
+}
+
+.form__fields--left,
+.form__fields--rigth{
+    width: 40%;
+}
+
+.form__input--info{
+    width: 150px;
+    border-radius: 3px;
+    border: none;
+    margin-bottom: 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form__icon--info{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.form__submit--info{
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form__input-text{
+    border: none;
+    outline: none;
+    resize: none;
+}
