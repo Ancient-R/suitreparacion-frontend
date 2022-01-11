@@ -1,11 +1,9 @@
 import React from 'react';
 import FormClient from '../../components/forms/client/FormClient';
-import FormUser from '../../components/forms/user/FormUser';
-// import ClientTable from '../../components/tables/client/ClientTable';
 import NavBar from '../../components/ui/navbar/NavBar';
 
 import '../Pages.css'
-const Users = () => {
+const Clients = () => {
     return (
         <div className='container__page'>
             <NavBar />
@@ -20,4 +18,4 @@ const Users = () => {
     );
 }
  
-export default Users;
+export default Clients;
