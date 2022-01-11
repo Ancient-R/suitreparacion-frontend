@@ -117,6 +117,7 @@
 /* Estilos formulario FormUser.js FormClient.js FormDevice.js*/
 .form__user{
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: baseline;
     padding: 2rem;
@@ -146,13 +147,12 @@
     margin-bottom: 0.4rem;
 }
 
-.form__submit--info{
-    bottom: 0;
-    left: 0;
-    right: 0;
+.form__submit--info{    
+    left: 100%;
     width: 250px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
 }
 
 .form__input-text{
