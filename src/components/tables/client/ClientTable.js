@@ -1,4 +1,5 @@
 import React from 'react';
+import ActionsTable from '../ActionsTable';
 
 import '../Tables.css';
 
@@ -31,12 +32,7 @@ const ClientTable = () => {
                         <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
                         <td className="row__body">
                             <div className='actions'>
-                                <button className="action action-update">
-                                    <i className="fas fa-user-edit actions-update"></i>
-                                </button>
-                                <button className="action action-delete">
-                                    <i className="fas fa-user-times actions-delete"></i>
-                                </button>
+                                <ActionsTable />
                             </div>
                         </td>
                         {/* <td className="row__body">
@@ -61,12 +57,7 @@ const ClientTable = () => {
                         <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
                         <td className="row__body">
                             <div className='actions'>
-                                <button className="action action-update">
-                                    <i className="fas fa-user-edit actions-update"></i>
-                                </button>
-                                <button className="action action-delete">
-                                    <i className="fas fa-user-times actions-delete"></i>
-                                </button>
+                                <ActionsTable />
                             </div>
                         </td>
                         {/* <td className="row__body">
@@ -93,12 +84,7 @@ const ClientTable = () => {
                         <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
                         <td className="row__body">
                             <div className='actions'>
-                                <button className="action action-update">
-                                    <i className="fas fa-user-edit actions-update"></i>
-                                </button>
-                                <button className="action action-delete">
-                                    <i className="fas fa-user-times actions-delete"></i>
-                                </button>
+                                <ActionsTable />
                             </div>
                         </td>
                         {/* <td className="row__body">
@@ -125,12 +111,7 @@ const ClientTable = () => {
                         <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
                         <td className="row__body">
                             <div className='actions'>
-                                <button className="action action-update">
-                                    <i className="fas fa-user-edit actions-update"></i>
-                                </button>
-                                <button className="action action-delete">
-                                    <i className="fas fa-user-times actions-delete"></i>
-                                </button>
+                                <ActionsTable />
                             </div>
                         </td>
                         {/* <td className="row__body">

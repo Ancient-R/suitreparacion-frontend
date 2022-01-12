@@ -1,4 +1,5 @@
 import React from 'react';
+import ActionsTable from '../ActionsTable';
 
 import '../Tables.css';
 
@@ -34,12 +35,7 @@ const DevicesTable = () => {
                         <td className="row__body">10 de enero de 2022</td>
                         <td className="row__body">Nuevo ingreso</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -48,12 +44,7 @@ const DevicesTable = () => {
                         <td className="row__body">02 de enero de 2022</td>
                         <td className="row__body">En revisión</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -62,12 +53,7 @@ const DevicesTable = () => {
                         <td className="row__body">10 de enero de 2022</td>
                         <td className="row__body">Nuevo ingreso</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -76,12 +62,7 @@ const DevicesTable = () => {
                         <td className="row__body">02 de enero de 2022</td>
                         <td className="row__body">En revisión</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -90,12 +71,7 @@ const DevicesTable = () => {
                         <td className="row__body">10 de enero de 2022</td>
                         <td className="row__body">Nuevo ingreso</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -104,12 +80,7 @@ const DevicesTable = () => {
                         <td className="row__body">02 de enero de 2022</td>
                         <td className="row__body">En revisión</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import ActionsTable from '../ActionsTable';
 
 import '../Tables.css';
 
@@ -32,12 +33,7 @@ const UserTable = () => {
                         <td className="row__body">Jefa de proyectos</td>
                         <td className="row__body">Activa</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -46,12 +42,7 @@ const UserTable = () => {
                         <td className="row__body">Jefa de proyectos</td>
                         <td className="row__body">Activa</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -60,12 +51,7 @@ const UserTable = () => {
                         <td className="row__body">Jefa de proyectos</td>
                         <td className="row__body">Activa</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -75,12 +61,7 @@ const UserTable = () => {
                         <td className="row__body">Jefa de proyectos</td>
                         <td className="row__body">Activa</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
@@ -90,12 +71,7 @@ const UserTable = () => {
                         <td className="row__body">Jefa de proyectos</td>
                         <td className="row__body">Activa</td>
                         <td className="row__body actions">
-                            <button className="action action-update">
-                                <i className="fas fa-user-edit"></i>
-                            </button>
-                            <button className="action action-delete">
-                                <i className="fas fa-user-times"></i>
-                            </button>
+                            <ActionsTable />
                         </td>
                     </tr>
 
