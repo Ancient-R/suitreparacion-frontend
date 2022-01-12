@@ -29,6 +29,10 @@ body {
   color: var(--dark-color);
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
 
 /*  estilos para el logo */
 .logo{

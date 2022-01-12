@@ -10,7 +10,7 @@
     width: 250px;
     height: 100%;
     justify-content: space-evenly;
-    background-color: var(--white-color);
+    background-color: var(--light-color);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
@@ -19,15 +19,30 @@
     list-style: none;
     padding: 0;
     width: 100%;
-    height: 200px;
+    height: 210px;
     align-items: baseline;
 }
 
 .menu__item{
+    position: relative;
+    width: 250px;
     flex-direction: row;
-    justify-content: center;
     font-size: 18px;
     cursor: pointer;
     transition: background-color .5s ease;
+    padding-left: 40px;
 }
 
+.menu__item:hover{
+    background-color: var(--element-color);
+    color: var(--light-color);
+}
+
+.active{
+    background-color: var(--element-color-alt);
+    color: var(--light-color);
+}
+
+.menu__item--icon{
+    margin-right: 10px;
+}
