@@ -1,5 +1,6 @@
 import React from 'react';
 import FormClient from '../../components/forms/client/FormClient';
+import ClientTable from '../../components/tables/client/ClientTable';
 import NavBar from '../../components/ui/navbar/NavBar';
 
 import '../Pages.css'
@@ -12,7 +13,7 @@ const Clients = () => {
                     isEdit={false}
                 />
 
-                {/* <ClientTable /> */}
+                <ClientTable />
             </div>
         </div>
     );

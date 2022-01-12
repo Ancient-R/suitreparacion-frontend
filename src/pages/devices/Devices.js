@@ -1,5 +1,6 @@
 import React from 'react';
 import FormDevice from '../../components/forms/devices/FormDevice';
+import DevicesTable from '../../components/tables/devices/DevicesTable';
 import NavBar from '../../components/ui/navbar/NavBar';
 
 import '../Pages.css'
@@ -11,6 +12,8 @@ const Devices = () => {
                 <FormDevice 
                     isEdit={true}
                 />
+
+                <DevicesTable />
             </div>
         </div>
     );
