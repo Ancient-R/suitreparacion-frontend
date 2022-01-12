@@ -38,12 +38,17 @@
 }
 
 .table__row{
-    transition: background-color .5s ease, color .5s ease;
+    transition: background-color .5s ease, color .5s ease, transform 0.5s ease;
     cursor: pointer;
 }
 
-.table__row:nth-child(odd){
+.table__row:hover{
+    transform: scale(1.02);
+}
+
+.table__row:nth-child(even){
     background-color: var(--element-color);
+    color: var(--light-color);
 }
 
 .row__body{
