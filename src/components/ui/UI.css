@@ -46,3 +46,22 @@
 .menu__item--icon{
     margin-right: 10px;
 }
+
+
+/*  Estilos para el componente Cards.js */
+.card__container{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.card{
+    background-color: var(--light-color);
+    padding: 2rem;
+    border-radius: 5px;
+}
+
+.card__total{
+    margin-left: 10px;
+}
