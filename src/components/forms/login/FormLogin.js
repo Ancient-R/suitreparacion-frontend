@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 // estilos css
 import '../Form.css';
@@ -6,6 +7,9 @@ import '../Form.css';
 // helper para mostrar alerta
 import { Alert } from '../../../helpers/Alert';
 import { validatePass } from '../../../helpers/validations';
+
+// actions
+import { miPrimerAction } from '../../../actions/authActions';
 
 const FormLogin = () => {
 
@@ -27,6 +31,10 @@ const FormLogin = () => {
         });
     }
 
+    // dispatch para los actions
+    const dispatch = useDispatch();
+    
+
     // función submit para el formulario
     const handleFormSubmit = e => {
         e.preventDefault();
@@ -35,6 +43,10 @@ const FormLogin = () => {
         if( username.length < 5) return Alert('!Nombre de usuario invalido!', 'Verifica que el nombre de usuario sea correcto', 'error');
 
         if( password.length < 8 && !validatePass( password )) return Alert('¡Contraseña invalida!', 'Recuerda que tu contraseña debe tener mínimo ocho caracteres, al menos una letra, una mayúscula, un número y un carácter especial', 'error');
+
+        // dispatch al action de iniciar sesión
+        dispatch( miPrimerAction );
+        
     }
 
     return (
