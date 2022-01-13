@@ -121,7 +121,7 @@
     justify-content: space-evenly;
     align-items: baseline;
     padding: 2rem;
-    position: relative;
+    background-color: var(--primary-bg-color);
 }
 
 .form__fields--left,
