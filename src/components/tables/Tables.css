@@ -3,8 +3,7 @@
     width: 100%;
     overflow-y: auto;
     overflow-x: auto;
-    height: 250px;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .table__search{
@@ -38,12 +37,12 @@
 }
 
 .table__row{
-    transition: background-color .5s ease, color .5s ease, transform 0.5s ease;
+    transition: background-color .5s ease, color .5s ease, transform 0.1s ease;
     cursor: pointer;
 }
 
 .table__row:hover{
-    transform: scale(1.02);
+    transform: scale(1.01);
 }
 
 .table__row:nth-child(even){
