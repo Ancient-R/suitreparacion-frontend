@@ -9,7 +9,7 @@ import { Alert } from '../../../helpers/Alert';
 import { validatePass } from '../../../helpers/validations';
 
 // actions
-import { miPrimerAction } from '../../../actions/authActions';
+import { startLogin } from '../../../actions/authActions';
 
 const FormLogin = () => {
 
@@ -45,7 +45,7 @@ const FormLogin = () => {
         if( password.length < 8 && !validatePass( password )) return Alert('¡Contraseña invalida!', 'Recuerda que tu contraseña debe tener mínimo ocho caracteres, al menos una letra, una mayúscula, un número y un carácter especial', 'error');
 
         // dispatch al action de iniciar sesión
-        dispatch( miPrimerAction );
+        dispatch( startLogin( values ) );
         
     }
 
