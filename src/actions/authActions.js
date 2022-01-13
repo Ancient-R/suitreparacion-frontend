@@ -1,8 +1,9 @@
-import { INICIAR_SESION_CORRECTO, INICIAR_SESION_ERROR, MOSTRAR_ALERTA, OCULTAR_ALERTA } from '../types';
+import { INICIAR_SESION_CORRECTO, INICIAR_SESION_ERROR, MOSTRAR_ALERTA, OCULTAR_ALERTA, USUARIO_AUTENTICADO } from '../types';
 
 // axios
 import clientAxios from '../axios/axios';
 import { Alert } from '../helpers/Alert';
+import authToken from '../axios/authToken';
 
 
 // función para hacer la consulta al backend
@@ -65,3 +66,45 @@ const loginUser = ( user ) => ({
     type: INICIAR_SESION_CORRECTO,
     payload: user 
 });
+
+
+// función que valida el token guardado en local storage,
+    // si es valido o no ha expirado ( tiene limite de 5hras ) autentica al usuario
+export const authUser = ( token ) => {
+    return async ( dispatch ) => {
+        
+        // validación del token
+        authToken( token );
+        try {
+            const res = await clientAxios.get('/api/suitreparacion/auth');
+
+            if( res.data.user ) {
+                dispatch({
+                    type: USUARIO_AUTENTICADO,
+                    payload: res.data.user
+                });
+
+            }
+            
+        } catch (error) {
+            const err = await error.response;
+
+            dispatch({
+                type: INICIAR_SESION_ERROR
+            });
+            
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+
+            Alert('¡Error!', err.data.msg, 'error');
+
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
+        }
+    }
+}
