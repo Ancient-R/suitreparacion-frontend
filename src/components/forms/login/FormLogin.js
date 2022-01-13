@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 // estilos css
 import '../Form.css';
 
+// helper para mostrar alerta
+import { Alert } from '../../../helpers/Alert';
+import { validatePass } from '../../../helpers/validations';
+
 const FormLogin = () => {
 
     // estado para mostrar contraseña
@@ -26,7 +30,11 @@ const FormLogin = () => {
     // función submit para el formulario
     const handleFormSubmit = e => {
         e.preventDefault();
-        console.log(values)
+        
+        // validación del formulario
+        if( username.length < 5) return Alert('!Nombre de usuario invalido!', 'Verifica que el nombre de usuario sea correcto', 'error');
+
+        if( password.length < 8 && !validatePass( password )) return Alert('¡Contraseña invalida!', 'Recuerda que tu contraseña debe tener mínimo ocho caracteres, al menos una letra, una mayúscula, un número y un carácter especial', 'error');
     }
 
     return (
