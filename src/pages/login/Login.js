@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { authUser } from '../../actions/authActions';
 
 // components
 import FormLogin from '../../components/forms/login/FormLogin';
@@ -10,7 +11,8 @@ const LoginPage = () => {
     const { logged, permissions } = useSelector(state => state.auth);
     const navigate = useNavigate();
 
-    console.log( logged )
+    // dispatch para actions
+    const dispatch = useDispatch();
 
     useEffect( () => {
 
@@ -36,6 +38,12 @@ const LoginPage = () => {
                     break;
             }
         }
+
+        // verifica el token de localStorage
+        const token = localStorage.getItem('suitreparacion-token');
+        
+        if( token) dispatch( authUser( token ) )
+        
 
         // eslint-disable-next-line
     }, [ logged ]);
