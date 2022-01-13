@@ -8,9 +8,33 @@ const FormLogin = () => {
     // estado para mostrar contraseña
     const [showpassword, setShowpassword] = useState(false);
 
+    // estado del formulario
+    const [values, setValues] = useState({
+        username: '',
+        password: ''
+    });
+    const { username, password } = values;
+
+    // función para actualizar el estado del formulario
+    const handleInputChange = e => {
+        setValues({
+            ...values,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    // función submit para el formulario
+    const handleFormSubmit = e => {
+        e.preventDefault();
+        console.log(values)
+    }
+
     return (
         <div className='form__container form__container--login'>
-            <form className='form form__login'>
+            <form 
+                className='form form__login'
+                onSubmit={ handleFormSubmit}
+            >
 
                 <img src="assets/icons/logo.png" className="logo element-center" alt='logo suitreparacion'/>
 
@@ -27,6 +51,8 @@ const FormLogin = () => {
                             type="text"
                             placeholder='Ej. miguel2001'
                             name="username"
+                            value={ username }
+                            onChange={ handleInputChange }
                         />
                         <i className="fas fa-user form__icon bg-purple color-white"></i>
                     </div>
@@ -42,6 +68,8 @@ const FormLogin = () => {
                             type={`${showpassword ? 'text' : 'password'}`}
                             placeholder='Mínimo 8 caracteres'
                             name="password"
+                            value={ password }
+                            onChange={ handleInputChange }
                         />
 
                         <i 
