@@ -1,10 +1,10 @@
-import { } from '../types';
+import { OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR } from '../types';
 
 const initialState = {
     users: null,
     user: null,
     // estado para páginación por parte del backend
-    actualPage: 1,
+    actualPage: null,
     totalPages: null,
     prevPage: null,
     nextPage: null
@@ -13,6 +13,20 @@ const initialState = {
 export const usersReducer = ( state = initialState, action ) => {
     switch( action.type ){
         
+        case OBTENER_USUARIOS_CORRECTO:
+            return {
+                users: action.payload.docs,
+                actualPage: action.payload.page,
+                totalPages: action.payload.totalPages,
+                prevPage: action.payload.prevPage,
+                nextPage: action.payload.nextPage
+            }
+
+        case OBTENER_USUARIOS_ERROR:
+            return {
+                ...state
+            }
+
         default:
             return state
     }
