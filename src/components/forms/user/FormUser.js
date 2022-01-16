@@ -4,7 +4,12 @@ import { useDispatch } from 'react-redux';
 // css
 import '../Form.css';
 
+// actions
 import { newUser } from '../../../actions/usersActions';
+
+// helpers
+import { Alert } from '../../../helpers/Alert';
+import { validateEmail, validatePass, validatePhone } from '../../../helpers/validations';
 
 const FormUser = ({ isEdit }) => {
 
@@ -18,11 +23,12 @@ const FormUser = ({ isEdit }) => {
         phone: '',
         email: '',
         username: '',
-        actualPassword: '',
+        password: '',
         newPassword: '',
+        permissions: 'administrador',
         status: 'activo'
     });
-    const { name, address, phone, email, username, actualPassword, newPassword, status } = formValues;
+    const { name, address, phone, email, username, password, newPassword, permissions, status } = formValues;
 
     // dispatch para los actions
     const dispatch = useDispatch();
@@ -40,6 +46,17 @@ const FormUser = ({ isEdit }) => {
         e.preventDefault();
 
         // validar formulario
+        if( name.trim().length < 5 ) return Alert('¡Error!', 'Ingresa un nombre valido', 'error');
+
+        if( address.trim().length < 5 ) return Alert('¡Error!', 'Ingresa una dirección valida', 'error');
+
+        if( phone.trim().length < 9 || !validatePhone( phone )) return Alert('¡Error!', 'Número de teléfono invalido', 'error');
+
+        if( email.trim().length < 5 || !email.includes('@') || !validateEmail( email )) return Alert('¡Error!', 'Ingresa un correo electronico valido', 'error');
+
+        if( username.trim().length < 5 ) return Alert('¡Error!', 'Nombre de usuario invalido', 'error');
+
+        if( password.trim().length < 8 || !validatePass( password )) return Alert('¡Error!', 'Recuerda que la contraseña debe tener mínimo ocho caracteres, al menos una letra, una mayúscula, un número y un carácter especial', 'error');
 
         dispatch( newUser( formValues ) );
     }
@@ -57,7 +74,7 @@ const FormUser = ({ isEdit }) => {
                             className='form__label'
                         >Nombre: </label>
                         <div className='form__container--input'>
-                            <i className="fas fa-user-circle form__icon form__icon--info bg-purple "></i>
+                            <i className="fas fa-user-circle form__icon form__icon--info"></i>
                             <input 
                                 type="text"
                                 className='form__input form__input--info'
@@ -74,7 +91,7 @@ const FormUser = ({ isEdit }) => {
                             className='form__label'
                         >Dirección: </label>
                         <div className='form__container--input'>
-                            <i className="fas fa-directions form__icon form__icon--info bg-purple "></i>
+                            <i className="fas fa-directions form__icon form__icon--info"></i>
                             <input 
                                 type="text"
                                 className='form__input form__input--info'
@@ -91,7 +108,7 @@ const FormUser = ({ isEdit }) => {
                             className='form__label'
                         >Teléfono: </label>
                         <div className='form__container--input'>
-                            <i className="fas fa-phone form__icon form__icon--info bg-purple "></i>
+                            <i className="fas fa-phone form__icon form__icon--info"></i>
                             <input 
                                 type="text"
                                 className='form__input form__input--info'
@@ -108,7 +125,7 @@ const FormUser = ({ isEdit }) => {
                             className='form__label'
                         >Correo: </label>
                         <div className='form__container--input'>
-                            <i className="fas fa-at form__icon form__icon--info bg-purple "></i>
+                            <i className="fas fa-at form__icon form__icon--info"></i>
                             <input 
                                 type="email"
                                 className='form__input form__input--info'
@@ -127,7 +144,7 @@ const FormUser = ({ isEdit }) => {
                             className='form__label'
                         >Nombre de usuario: </label>
                         <div className='form__container--input'>
-                            <i className="fas fa-id-badge form__icon form__icon--info bg-purple "></i>
+                            <i className="fas fa-id-badge form__icon form__icon--info"></i>
                             <input 
                                 type="text"
                                 className='form__input form__input--info'
@@ -145,19 +162,19 @@ const FormUser = ({ isEdit }) => {
                         >{ isEdit ? 'Contraseña anterior': 'Contraseña:'} </label>
                         <div className='form__container--input'>
                             <i 
-                                className={`fas fa-eye fadein form__icon form__icon--info bg-purple  ${ showpassword ? 'icon-hide' : 'icon-show'}`}
+                                className={`fas fa-eye fadein form__icon form__icon--info ${ showpassword ? 'icon-hide' : 'icon-show'}`}
                                 onClick={ () => setShowpassword(!showpassword ) }
                             ></i>
                             <i 
-                                className={`fas fa-eye-slash fadein form__icon form__icon--info icon--hide bg-purple  ${showpassword ? 'icon-show' : 'icon-hide'}`}
+                                className={`fas fa-eye-slash fadein form__icon form__icon--info icon--hide ${showpassword ? 'icon-show' : 'icon-hide'}`}
                                 onClick={ () => setShowpassword( !showpassword ) }
                             ></i>
                             <input 
                                 type={`${showpassword ? 'text' : 'password'}`}
                                 className='form__input form__input--info'
                                 placeholder="Mínimo 8 caracteres"
-                                name="actualPassword"
-                                value={ actualPassword }
+                                name="password"
+                                value={ password }
                                 onChange={ handleInputChange }
                             />
                         </div>
@@ -170,11 +187,11 @@ const FormUser = ({ isEdit }) => {
                         >Nueva contraseña: </label>
                         <div className='form__container--input'>
                             <i 
-                                className={`fas fa-eye fadein form__icon form__icon--info bg-purple  ${ showpassword ? 'icon-hide' : 'icon-show'}`}
+                                className={`fas fa-eye fadein form__icon form__icon--info ${ showpassword ? 'icon-hide' : 'icon-show'}`}
                                 onClick={ () => setShowpassword(!showpassword ) }
                             ></i>
                             <i 
-                                className={`fas fa-eye-slash fadein form__icon form__icon--info icon--hide bg-purple  ${showpassword ? 'icon-show' : 'icon-hide'}`}
+                                className={`fas fa-eye-slash fadein form__icon form__icon--info icon--hide ${showpassword ? 'icon-show' : 'icon-hide'}`}
                                 onClick={ () => setShowpassword( !showpassword ) }
                             ></i>
                             <input 
@@ -194,9 +211,28 @@ const FormUser = ({ isEdit }) => {
                     <div className='form__field'>
                         <label
                             className='form__label'
+                        >Permisos: </label>
+                        <div className='form__container--input'>
+                            <i className="fas fa-id-card form__icon form__icon--info"></i>
+                            <select 
+                                className='form__input form__input--info'
+                                name="permissions"
+                                value={ permissions }
+                                onChange={ handleInputChange }
+                            >
+                                <option value="administrador">Administrador</option>
+                                <option value="recepcionista">Recepcionista</option>
+                                <option value="tecnico">Técnico</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className='form__field'>
+                        <label
+                            className='form__label'
                         >Estado: </label>
                         <div className='form__container--input'>
-                            <i className="fas fa-exclamation-triangle form__icon form__icon--info bg-purple "></i>
+                            <i className="fas fa-exclamation-triangle form__icon form__icon--info"></i>
                             <select 
                                 className='form__input form__input--info'
                                 name="status"
