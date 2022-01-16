@@ -121,7 +121,7 @@
     justify-content: space-evenly;
     align-items: baseline;
     padding: 2rem;
-    background-color: var(--primary-bg-color);
+    background-color: var(--light-color);
 }
 
 .form__fields--left,
@@ -147,16 +147,23 @@
     margin-bottom: 0.4rem;
 }
 
-.form__submit--info{    
-    left: 100%;
-    width: 250px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+.form__submit--info{
+    left: 0;
+    width: 200px;
+    margin-bottom: 10px;
 }
 
 .form__input-text{
     border: none;
     outline: none;
     resize: none;
+}
+
+.form__field--actions{    
+    margin-top: 15px;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
 }

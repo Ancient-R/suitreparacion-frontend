@@ -61,6 +61,21 @@ const FormUser = ({ isEdit }) => {
         dispatch( newUser( formValues ) );
     }
 
+    // función para limpiar el formulario
+    const handleCleanForm = () => {
+        setFormValues({
+            name: '',
+            address: '',
+            phone: '',
+            email: '',
+            username: '',
+            password: '',
+            newPassword: '',
+            permissions: 'administrador',
+            status: 'activo'
+        });
+    }
+
     return (
         <>
             <h1 className='text-center'>Agregar usuario</h1>
@@ -246,25 +261,30 @@ const FormUser = ({ isEdit }) => {
                     </div>
                 </div>
 
-                { isEdit ? 
-                    <div className='form__field'>
+                <div className='form__field--actions'>
+
+                    { isEdit ? 
                         <input
                             type="submit"
-                            className='form__submit form__submit--info  bg-yellow  hover'
+                            className='form__submit form__submit--info  hover'
                             value="Editar datos"
                         />
-                    </div>
 
-                    :
+                        :
 
-                    <div className='form__field'>
                         <input
                             type="submit"
                             className='form__submit form__submit--info bg-green hover'
                             value="Agregar Usuario"
                         />
-                    </div>
-                }
+                    }
+                    <input
+                        type="button"
+                        className='form__submit form__submit--info hover'
+                        value="Limpiar formulario"
+                        onClick={ handleCleanForm }
+                    />
+                </div>
             </form>
         </>
     );
