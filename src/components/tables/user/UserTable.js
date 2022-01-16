@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers } from '../../../actions/usersActions';
 import ActionsTable from '../ActionsTable';
 
 import '../Tables.css';
 
 const UserTable = () => {
+
+    // función dispatch para los actions
+    const dispatch = useDispatch();
+
+    // accediendo al state
+    const { logged, permissions } = useSelector(state => state.auth);
+    const { users } = useSelector(state => state.users);
+
+    const [page, setPage] = useState(1);
+
+    useEffect( () => {
+        if( logged && permissions === 'administrador') dispatch( getUsers( page ) );
+
+        // eslint-disable-next-line
+    }, [ logged, permissions, page ]);
+    
     return (
         <div className='table__container'>
             <div className='table__search'>
@@ -20,60 +38,31 @@ const UserTable = () => {
                 <thead>
                     <tr>
                         <th className='table__head--row'>Nombre</th>
-                        <th className='table__head--row'>Nombre de usuario</th>
+                        <th className='table__head--row'>Permisos</th>
                         <th className='table__head--row'>Estado</th>
                         <th className='table__head--row'>Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
+                {/*  Mostrando los usuarios de la DB*/}
+                    { users ? 
+                        users.map( user => 
+                            <tr 
+                                className="table__row"
+                                key={ user._id }
 
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Jefa de proyectos</td>
-                        <td className="row__body">Activa</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Jefa de proyectos</td>
-                        <td className="row__body">Activa</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Jefa de proyectos</td>
-                        <td className="row__body">Activa</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Jefa de proyectos</td>
-                        <td className="row__body">Activa</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Jefa de proyectos</td>
-                        <td className="row__body">Activa</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
+                            >
+                                <td className="row__body">{ user.name }</td>
+                                <td className="row__body">{ user.permissions }</td>
+                                <td className="row__body">{ user.status }</td>
+                                <td className="row__body actions">
+                                    <ActionsTable />
+                                </td>
+                            </tr>
+                        )
+                        : null
+                    }
 
                 </tbody>
             </table>
