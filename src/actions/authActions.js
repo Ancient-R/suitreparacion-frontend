@@ -1,4 +1,4 @@
-import { INICIAR_SESION_CORRECTO, INICIAR_SESION_ERROR, MOSTRAR_ALERTA, OCULTAR_ALERTA, USUARIO_AUTENTICADO } from '../types';
+import { INICIAR_SESION_CORRECTO, INICIAR_SESION_ERROR, MOSTRAR_ALERTA, OCULTAR_ALERTA, USUARIO_AUTENTICADO, CERRAR_SESION } from '../types';
 
 // axios
 import clientAxios from '../axios/axios';
@@ -108,3 +108,8 @@ export const authUser = ( token ) => {
         }
     }
 }
+
+// función para cerrar sesión del usuario
+export const logoutUser = () => ({
+    type: CERRAR_SESION
+});

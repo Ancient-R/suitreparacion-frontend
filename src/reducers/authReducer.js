@@ -1,4 +1,4 @@
-import { INICIAR_SESION_CORRECTO, INICIAR_SESION_ERROR, USUARIO_AUTENTICADO } from "../types"
+import { INICIAR_SESION_CORRECTO, INICIAR_SESION_ERROR, USUARIO_AUTENTICADO, CERRAR_SESION } from "../types"
 
 const initialState = {
     token: ( typeof window !== 'undefined') ? localStorage.getItem('suitreparacion-token') : '',
@@ -12,7 +12,6 @@ export const authReducer = ( state = initialState, action ) => {
 
         case INICIAR_SESION_CORRECTO:
             localStorage.setItem('suitreparacion-token', action.payload.token );
-            console.log( action.payload );
             return {
                 ...state,
                 token: action.payload.token,
@@ -33,6 +32,16 @@ export const authReducer = ( state = initialState, action ) => {
                     permissions: action.payload.permissions,
                     logged: true,
 
+                }
+
+            case CERRAR_SESION:
+                localStorage.removeItem('suitreparacion-token');
+                return{
+                    ...state,
+                    token: null,
+                    user: null,
+                    permissions: null,
+                    logged: false
                 }
 
         default:

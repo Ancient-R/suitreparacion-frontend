@@ -1,10 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import '../UI.css';
+import { logoutUser } from '../../../actions/authActions';
 
 
 const NavBar = () => {
+
+    const dispatch = useDispatch();
+
+    // función para cerrar sesión
+    const handleLogout = () => {
+
+        dispatch( logoutUser() );
+    }
+
     return (
         <div className='navbar__container'>
             
@@ -46,7 +57,10 @@ const NavBar = () => {
                     </li>
                 </NavLink>
 
-                <li className='menu__item'>
+                <li 
+                    className='menu__item'
+                    onClick={ handleLogout }
+                >
                     <i className="fas fa-sign-out-alt menu__item--icon"></i>
                     <p>Cerrar Sesión</p>
                 </li>
