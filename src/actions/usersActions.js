@@ -6,14 +6,13 @@ import clientAxios from '../axios/axios';
 // helper para mostrar alertas
 import { Alert } from '../helpers/Alert';
 
+// función para obtener los usuarios de la DB
 export const getUsers = (page) => {
     return async ( dispatch ) => {
         
         try {
             
             const res = await clientAxios.get(`/api/suitreparacion/users/get-users/?page=${page}`);
-            console.log( res );
-            console.log( res.data.users )
             if( res.data.ok ){
 
                 dispatch({
@@ -43,5 +42,11 @@ export const getUsers = (page) => {
             }, 3000);
 
         }
+    }
+}
+
+export const newUser = ( user ) => {
+    return async ( dispatch ) => {
+        dispatch(console.table( user ));
     }
 }
