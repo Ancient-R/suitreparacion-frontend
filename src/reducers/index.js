@@ -3,8 +3,10 @@ import { combineReducers } from 'redux';
 // reducers
 import { authReducer } from './authReducer';
 import { alertReducer } from './alertReducer';
+import { usersReducer } from './usersReducer';
 
 export default combineReducers({
     alert: alertReducer,
-    auth: authReducer
+    auth: authReducer,
+    users: usersReducer
 });
