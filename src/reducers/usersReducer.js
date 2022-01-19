@@ -1,8 +1,9 @@
-import { ACTIVE_USER, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR } from '../types';
+import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
 
 const initialState = {
     users: null,
     user: null,
+    isOpenUserModal: false,
     // estado para páginación por parte del backend
     actualPage: null,
     totalPages: null,
@@ -39,7 +40,7 @@ export const usersReducer = ( state = initialState, action ) => {
                 ...state
             }
         
-        case ACTIVE_USER:
+        case USUARIO_SELECCIONADO:
             return{
                 ...state,
                 user: action.payload
@@ -48,7 +49,7 @@ export const usersReducer = ( state = initialState, action ) => {
         case ELIMINAR_USUARIO_CORRECTO:
             return {
                 ...state,
-                users: state.users.filter( user => user._id !== state.user ),
+                users: state.users.filter( user => user._id !== state.user._id ),
                 user: null,
             }
 

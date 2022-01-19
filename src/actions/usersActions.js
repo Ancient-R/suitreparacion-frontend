@@ -1,4 +1,4 @@
-import { ACTIVE_USER, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA } from '../types';
+import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA, USUARIO_SELECCIONADO } from '../types';
 
 // axios para consulta a la DB
 import clientAxios from '../axios/axios';
@@ -118,12 +118,12 @@ export const newUser = ( user ) => {
 }
 
 // función para poner al usuario que se va a editar o eliminar, en el state, para poder saber que usuario es
-export const activeUser = ( userId ) => {
+export const activeUser = ( user ) => {
     return async ( dispatch ) => {
 
         dispatch({
-            type: ACTIVE_USER,
-            payload: userId
+            type: USUARIO_SELECCIONADO,
+            payload: user
         });
     }
 }
