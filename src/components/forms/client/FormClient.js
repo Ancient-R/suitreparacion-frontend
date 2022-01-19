@@ -48,7 +48,9 @@ const FormClient = ({ isEdit }) => {
 
         if( email.trim().length < 5 || !email.includes('@') || !validateEmail( email )) return Alert('¡Error!', 'Ingresa un correo electronico valido', 'error');
 
-        dispatch( newClient(formClientValues ) );
+        // valida de donde se ha hecho click, si en el botón "agregar cliente" o "editar cliente"
+        if( e.target.dataset.submit ) dispatch( newClient(formClientValues ) );
+
 
     }
 

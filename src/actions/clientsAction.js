@@ -78,6 +78,7 @@ export const newClient = ( client ) => {
                     });
                 }, 3000);
 
+                dispatch( getClients() );
             }
             
         } catch (error) {

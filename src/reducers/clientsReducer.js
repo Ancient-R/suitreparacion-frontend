@@ -1,4 +1,4 @@
-import { OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
+import { AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
 
 const initialState = {
     clients: null,
@@ -23,10 +23,12 @@ export const clientsReducer = ( state = initialState, action ) => {
             }
 
         case OBTENER_CLIENTES_ERROR:
+        case AGREGAR_CLIENTE_CORRECTO:
+        case AGREGAR_CLIENTE_ERROR:
             return {
                 ...state
             }
-            
+
         default:
             return state
     }
