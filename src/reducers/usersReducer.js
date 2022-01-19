@@ -1,4 +1,4 @@
-import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
+import { ABRIR_MODAL, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
 
 const initialState = {
     users: null,
@@ -44,6 +44,19 @@ export const usersReducer = ( state = initialState, action ) => {
             return{
                 ...state,
                 user: action.payload
+            }
+
+        case ABRIR_MODAL:
+            return {
+                ...state,
+                isOpenUserModal: true
+            }
+
+        case CERRAR_MODAL:
+            return {
+                ...state,
+                isOpenUserModal: false,
+                user: null
             }
         
         case ELIMINAR_USUARIO_CORRECTO:

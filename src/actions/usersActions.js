@@ -1,4 +1,4 @@
-import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA, USUARIO_SELECCIONADO } from '../types';
+import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA, USUARIO_SELECCIONADO, ABRIR_MODAL, CERRAR_MODAL } from '../types';
 
 // axios para consulta a la DB
 import clientAxios from '../axios/axios';
@@ -114,6 +114,24 @@ export const newUser = ( user ) => {
                     }, 3000)
                 }
         }
+    }
+}
+
+// función para abrir modal
+export const openModal = () => {
+    return ( dispatch ) => {
+        dispatch({
+            type: ABRIR_MODAL
+        });
+    }
+}
+
+// función para cerrar modal
+export const closeModal = () => {
+    return ( dispatch ) => {
+        dispatch({
+            type: CERRAR_MODAL
+        });
     }
 }
 
