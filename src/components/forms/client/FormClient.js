@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../Form.css';
 
 // actions
-import { newClient } from '../../../actions/clientsAction';
+import { newClient, updateClient } from '../../../actions/clientsAction';
 
 // helpers
 import { Alert } from '../../../helpers/Alert';
@@ -56,6 +56,8 @@ const FormClient = ({ isEdit }) => {
 
         // valida de donde se ha hecho click, si en el botón "agregar cliente" o "editar cliente"
         if( e.target.dataset.submit ) dispatch( newClient(formClientValues ) );
+
+        if( e.target.dataset.edit ) dispatch( updateClient( formClientValues, client._id ) );
 
 
     }

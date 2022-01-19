@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
 
 const initialState = {
     clients: null,
@@ -25,6 +25,7 @@ export const clientsReducer = ( state = initialState, action ) => {
         case OBTENER_CLIENTES_ERROR:
         case AGREGAR_CLIENTE_CORRECTO:
         case AGREGAR_CLIENTE_ERROR:
+        case ACTUALIZAR_CLIENTE_ERROR:
             return {
                 ...state
             }
@@ -46,6 +47,12 @@ export const clientsReducer = ( state = initialState, action ) => {
                 ...state,
                 isOpenClientModal: false,
                 client: null
+            }
+
+        case ACTUALIZAR_CLIENTE_CORRECTO:
+            return {
+                ...state,
+                clients: state.clients.map( client => client._id === action.payload._id ? client = action.payload : client )
             }
 
         default:

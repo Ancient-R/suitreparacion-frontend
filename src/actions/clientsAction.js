@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -100,24 +100,6 @@ export const newClient = ( client ) => {
                     type: OCULTAR_ALERTA
                 });
             }, 3000);
-
-
-            // debido a que en el backend hay validación, puede retornar un arreglo de errores
-                // valida que exista ese arreglo
-                if( err.data.errors !== undefined){
-                    dispatch({
-                        type: MOSTRAR_ALERTA,
-                        payload: err.data.errors.password.msg
-                    });
-    
-                    Alert('¡Error!', err.data.errors.password.msg, 'error' );
-    
-                    setTimeout( () => {
-                        dispatch({
-                            type: OCULTAR_ALERTA
-                        })
-                    }, 3000)
-                }
         }
     }
 }
@@ -148,5 +130,67 @@ export const activeClient = ( client ) => {
             type: CLIENTE_SELECCIONADO,
             payload: client
         });
+    }
+}
+
+// función para actualizar datos de cliente
+export const updateClient = ( client, id ) => {
+    return async ( dispatch ) => {
+        try {
+
+            console.log( id );
+
+            const res = await clientAxios.put(`${ url }/update-client/${ id }`, client );
+        
+            // se agrega el id al usuario, debido a que no lo tiene
+            client._id = id;
+            
+            if( res.data.ok ){
+
+        
+                dispatch({
+                    type: ACTUALIZAR_CLIENTE_CORRECTO,
+                    payload: client
+                });
+        
+        
+                dispatch({
+                    type: MOSTRAR_ALERTA,
+                    payload: res.data.msg
+                });
+        
+                Alert('¡Correcto!', res.data.msg, 'success');
+        
+                setTimeout(() => {
+                    dispatch({
+                        type: OCULTAR_ALERTA
+                    });
+                }, 3000);
+
+                dispatch( closeModalClient() );
+        
+            }
+            
+        } catch (error) {
+            const err = await error.response;
+        
+            dispatch({
+                type: ACTUALIZAR_CLIENTE_ERROR
+            });
+        
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+        
+            Alert('¡Error!', err.data.msg, 'error');
+        
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
+        
+        }
     }
 }
