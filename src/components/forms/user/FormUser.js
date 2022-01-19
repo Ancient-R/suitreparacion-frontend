@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../Form.css';
 
 // actions
-import { newUser } from '../../../actions/usersActions';
+import { newUser, updateUser } from '../../../actions/usersActions';
 
 // helpers
 import { Alert } from '../../../helpers/Alert';
@@ -67,7 +67,7 @@ const FormUser = ({ isEdit }) => {
             if( password.trim().length < 8 || !validatePass( password )) return Alert('¡Error!', 'Recuerda que la contraseña debe tener mínimo ocho caracteres, al menos una letra, una mayúscula, un número y un carácter especial', 'error');
             dispatch( newUser( formValues ) );
         } 
-        if( e.target.dataset.edit ) console.log('Editando datos...');
+        if( e.target.dataset.edit ) dispatch( updateUser( formValues, user._id ) );
     }
 
     // función para limpiar el formulario

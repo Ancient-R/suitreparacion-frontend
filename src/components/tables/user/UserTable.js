@@ -71,7 +71,6 @@ const UserTable = () => {
                             <tr 
                                 className="table__row"
                                 key={ user._id }
-                                data-id={ user._id }
 
                             >
                                 <td className="row__body">{ user.name }</td>
