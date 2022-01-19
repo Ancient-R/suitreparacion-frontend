@@ -84,3 +84,27 @@
 .action-delete{
     background-color: var(--error-color);
 }
+
+/* Estilos del componente TablePagination.js */
+.pagination{
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination__button{
+    outline: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    border: none;
+    margin-right: 5px;
+    background-color: var(--element-color);
+    color: var(--light-color);
+}
+
+.actualPage{
+    background-color: var(--element-color-alt);
+}

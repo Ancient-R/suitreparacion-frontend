@@ -9,6 +9,7 @@ import { activeUser, deleteUser, getUsers, openModal } from '../../../actions/us
 // helper
 import { alertDelete } from '../../../helpers/Alert';
 import UserModal from '../../ui/modals/user/UserModal';
+import TablePagination from '../pagination/TablePagination';
 
 const UserTable = () => {
 
@@ -97,6 +98,10 @@ const UserTable = () => {
 
                 </tbody>
             </table>
+
+            <TablePagination 
+                setPage= { setPage }
+            />
 
             {/* Modal para editar información del usuario */}
             <UserModal />
