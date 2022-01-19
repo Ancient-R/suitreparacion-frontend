@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-modal';
 
 // estilos css
@@ -10,6 +10,7 @@ import { customStyles } from '../../../../helpers/modalStyles';
 
 // components
 import FormClient from '../../../forms/client/FormClient';
+import { closeModalClient } from '../../../../actions/clientsAction';
 
 
 const ClientModal = () => {
@@ -17,8 +18,11 @@ const ClientModal = () => {
     // estado de la modal
     const { isOpenClientModal } = useSelector(state => state.clients );
 
+    // dispatch para action
+    const dispatch = useDispatch();
+
     const handleCloseModal = () => {
-        console.log('Cerrar modal');
+        dispatch( closeModalClient() );
     }
 
     return (

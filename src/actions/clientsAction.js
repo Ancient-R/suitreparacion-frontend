@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -136,6 +136,17 @@ export const closeModalClient = () => {
     return ( dispatch ) => {
         dispatch({
             type: CERRAR_MODAL
+        });
+    }
+}
+
+// función para poner en state al cliente seleccionado
+export const activeClient = ( client ) => {
+    return ( dispatch ) => {
+
+        dispatch({
+            type: CLIENTE_SELECCIONADO,
+            payload: client
         });
     }
 }
