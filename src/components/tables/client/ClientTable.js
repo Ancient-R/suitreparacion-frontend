@@ -1,9 +1,15 @@
 import React from 'react';
-import ActionsTable from '../ActionsTable';
+import { useSelector } from 'react-redux';
 
+// estilos css
 import '../Tables.css';
 
+// actions
+
 const ClientTable = () => {
+
+    const { clients } = useSelector(state => state.clients);
+
     return (
         <div className='table__container'>
             <div className='table__search'>
@@ -26,112 +32,32 @@ const ClientTable = () => {
                 </thead>
 
                 <tbody>
+                        {/* Mostrando los clientes de la DB */}
+                    { clients ?
+                        clients.map( client => 
+                        <tr className="table__row">
+                            <td className="row__body">{ client.name }</td>
+                            <td className="row__body">{ client.address }</td>
+                            <td className="row__body">
+                                <div className='actions'>
+                                <button 
+                                        className="action action-update"
+                                    >
+                                        <i className="fas fa-user-edit"></i>
+                                    </button>
+                                    <button 
+                                        className="action action-delete"
+                                    >
+                                        <i className="fas fa-user-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
 
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
-                        <td className="row__body">
-                            <div className='actions'>
-                                <ActionsTable />
-                            </div>
-                        </td>
-                        {/* <td className="row__body">
-                            <table className='table'>
-                                <tbody>
-                                    <tr>
-                                        <td className='row__body  row__body--internal'>Mackbook</td>
-                                        <td className='row__body row__body--internal'>En revision</td>
-                                    </tr>
+                        )
 
-                                    <tr>
-                                        <td className='row__body row__body--internal'>Laptop</td>
-                                        <td className='row__body row__body--internal'>Reparado</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td> */}
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
-                        <td className="row__body">
-                            <div className='actions'>
-                                <ActionsTable />
-                            </div>
-                        </td>
-                        {/* <td className="row__body">
-                        <table className='table'>
-
-                                <tbody>
-
-                                    <tr>
-                                        <td className='row__body'>Laptop</td>
-                                        <td className='row__body'>Reparado</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td className='row__body'>Estereo</td>
-                                        <td className='row__body'>No reparado</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td> */}
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
-                        <td className="row__body">
-                            <div className='actions'>
-                                <ActionsTable />
-                            </div>
-                        </td>
-                        {/* <td className="row__body">
-                            <table className='table'>
-
-                                <tbody>
-                                    <tr>
-                                        <td className='row__body'>Mackbook</td>
-                                        <td className='row__body'>En revision</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td className='row__body'>Laptop</td>
-                                        <td className='row__body'>Reparado</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </td> */}
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Maria Gomez Diaz</td>
-                        <td className="row__body">Calle 18 de marzo #21 avenida de las flores</td>
-                        <td className="row__body">
-                            <div className='actions'>
-                                <ActionsTable />
-                            </div>
-                        </td>
-                        {/* <td className="row__body">
-                            <table className='table'>
-
-                                <tbody>
-                                    <tr>
-                                        <td className='row__body'>Mackbook</td>
-                                        <td className='row__body'>En revision</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td className='row__body'>Laptop</td>
-                                        <td className='row__body'>Reparado</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </td> */}
-                    </tr>
+                        : null
+                    }
 
                 </tbody>
             </table>
