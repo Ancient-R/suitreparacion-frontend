@@ -1,4 +1,4 @@
-import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR } from '../types';
+import { ACTIVE_USER, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR } from '../types';
 
 const initialState = {
     users: null,
@@ -28,11 +28,30 @@ export const usersReducer = ( state = initialState, action ) => {
             }
 
         case AGREGAR_USUARIO_CORRECTO:
+            return {
+                ...state,
+                users: [ ...state.users, action.payload ]
+            }
+
         case AGREGAR_USUARIO_ERROR:
+        case ELIMINAR_USUARIO_ERROR:
             return {
                 ...state
             }
         
+        case ACTIVE_USER:
+            return{
+                ...state,
+                user: action.payload
+            }
+        
+        case ELIMINAR_USUARIO_CORRECTO:
+            return {
+                ...state,
+                users: state.users.filter( user => user._id !== state.user ),
+                user: null,
+            }
+
         default:
             return state
     }
