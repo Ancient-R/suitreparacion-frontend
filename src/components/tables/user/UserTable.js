@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../Tables.css';
 
 // userActions.js
-import { activeUser, deleteUser, getUsers } from '../../../actions/usersActions';
+import { activeUser, deleteUser, getUsers, openModal } from '../../../actions/usersActions';
 
 // helper
 import { alertDelete } from '../../../helpers/Alert';
+import UserModal from '../../ui/modals/user/UserModal';
 
 const UserTable = () => {
 
@@ -21,10 +22,17 @@ const UserTable = () => {
     // estado para paginación
     const [page, setPage] = useState(1);
 
+
+    // función para editar usuario
+    const handleUpdate = ( user ) => {
+        dispatch( activeUser( user ) );
+        dispatch( openModal() );
+    }
+
     // función para eliminar usuario
-    const handleDelete = ( id ) => {
-        dispatch( activeUser( id ) );
-        alertDelete( id, dispatch, deleteUser );
+    const handleDelete = ( user ) => {
+        dispatch( activeUser( user ) );
+        alertDelete( user._id, dispatch, deleteUser );
 
     }
 
@@ -70,12 +78,15 @@ const UserTable = () => {
                                 <td className="row__body">{ user.permissions }</td>
                                 <td className="row__body">{ user.status }</td>
                                 <td className="row__body actions">
-                                    <button className="action action-update">
+                                    <button 
+                                        className="action action-update"
+                                        onClick={ () => handleUpdate( user ) }
+                                    >
                                         <i className="fas fa-user-edit"></i>
                                     </button>
                                     <button 
                                         className="action action-delete"
-                                        onClick={ () => handleDelete( user._id ) }
+                                        onClick={ () => handleDelete( user ) }
                                     >
                                         <i className="fas fa-user-times"></i>
                                     </button>
@@ -87,6 +98,9 @@ const UserTable = () => {
 
                 </tbody>
             </table>
+
+            {/* Modal para editar información del usuario */}
+            <UserModal />
         </div>
     );
 }

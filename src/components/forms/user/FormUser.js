@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // css
 import '../Form.css';
@@ -16,17 +16,23 @@ const FormUser = ({ isEdit }) => {
     // estado para mostrar contraseña
     const [showpassword, setShowpassword] = useState(false);
 
+    // accedemos al state para ver si un usuario esta activo
+    const { user } = useSelector(state => state.users);
+    
+    // variable que almacena true o false, dependiendo de la condición, ( si "isEdit es true" es que se quiere editar un usuario )
+    const isEditandActive = ( isEdit && user ) ? true:  false;
+
     // estado del formulario
     const [formValues, setFormValues] = useState({
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        username: '',
+        name: isEditandActive ? user.name : '',
+        address: isEditandActive ? user.address : '',
+        phone: isEditandActive ? user.phone : '',
+        email: isEditandActive ? user.email : '',
+        username: isEditandActive ? user.username : '',
         password: '',
         newPassword: '',
-        permissions: 'administrador',
-        status: 'activo'
+        permissions: isEditandActive ? user.permissions : 'administrador',
+        status: isEditandActive ? user.status : 'activo',
     });
     const { name, address, phone, email, username, password, newPassword, permissions, status } = formValues;
 
@@ -56,9 +62,12 @@ const FormUser = ({ isEdit }) => {
 
         if( username.trim().length < 5 ) return Alert('¡Error!', 'Nombre de usuario invalido', 'error');
 
-        if( password.trim().length < 8 || !validatePass( password )) return Alert('¡Error!', 'Recuerda que la contraseña debe tener mínimo ocho caracteres, al menos una letra, una mayúscula, un número y un carácter especial', 'error');
 
-        dispatch( newUser( formValues ) );
+        if( e.target.dataset.submit ){
+            if( password.trim().length < 8 || !validatePass( password )) return Alert('¡Error!', 'Recuerda que la contraseña debe tener mínimo ocho caracteres, al menos una letra, una mayúscula, un número y un carácter especial', 'error');
+            dispatch( newUser( formValues ) );
+        } 
+        if( e.target.dataset.edit ) console.log('Editando datos...');
     }
 
     // función para limpiar el formulario
@@ -78,10 +87,13 @@ const FormUser = ({ isEdit }) => {
 
     return (
         <>
-            <h1 className='text-center'>Agregar usuario</h1>
+            { isEdit ? 
+                <h1 className='text-center'>Editar usuario</h1>
+                :
+                <h1 className='text-center'>Agregar usuario</h1>
+            }
             <form 
                 className='form form__user'
-                onSubmit={ handleSubmit }
             >
                 <div className='form__fields--left'>
                     <div className='form__field'>
@@ -268,6 +280,8 @@ const FormUser = ({ isEdit }) => {
                             type="submit"
                             className='form__submit form__submit--info  hover'
                             value="Editar datos"
+                            onClick={ (e) => handleSubmit(e) }
+                            data-edit={ true }
                         />
 
                         :
@@ -276,6 +290,8 @@ const FormUser = ({ isEdit }) => {
                             type="submit"
                             className='form__submit form__submit--info bg-green hover'
                             value="Agregar Usuario"
+                            onClick={ (e) => handleSubmit(e) }
+                            data-submit={ true }
                         />
                     }
                     <input
