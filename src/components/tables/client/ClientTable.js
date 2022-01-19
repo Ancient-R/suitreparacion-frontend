@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import ClientModal from '../../ui/modals/client/ClientModal';
 
 // estilos css
 import '../Tables.css';
@@ -35,7 +36,10 @@ const ClientTable = () => {
                         {/* Mostrando los clientes de la DB */}
                     { clients ?
                         clients.map( client => 
-                        <tr className="table__row">
+                        <tr 
+                            className="table__row"
+                            key={ client._id }
+                        >
                             <td className="row__body">{ client.name }</td>
                             <td className="row__body">{ client.address }</td>
                             <td className="row__body">
@@ -61,6 +65,9 @@ const ClientTable = () => {
 
                 </tbody>
             </table>
+
+            {/* Modal para editar información de usuario */}
+            <ClientModal />
         </div>
     );
 }

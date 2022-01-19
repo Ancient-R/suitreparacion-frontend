@@ -1,4 +1,4 @@
-import { AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -119,5 +119,23 @@ export const newClient = ( client ) => {
                     }, 3000)
                 }
         }
+    }
+}
+
+// función para abrir modal de cliente
+export const openModalClient = () => {
+    return ( dispatch ) => {
+        dispatch({
+            type: ABRIR_MODAL
+        });
+    }
+}
+
+// función para cerrar modal de cliente
+export const closeModalClient = () => {
+    return ( dispatch ) => {
+        dispatch({
+            type: CERRAR_MODAL
+        });
     }
 }
