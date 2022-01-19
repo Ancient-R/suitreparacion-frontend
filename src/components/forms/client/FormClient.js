@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // estilos css
 import '../Form.css';
@@ -14,12 +14,18 @@ import { validateEmail, validatePhone } from '../../../helpers/validations';
 
 const FormClient = ({ isEdit }) => {
 
+    // accediendo al state para ver si un cliente esta activo
+    const { client } = useSelector(state => state.clients);
+
+    // variable que almacena true o false, dependiendo de la condición, ( si "isEdit es true" es que se quiere editar un usuario )
+    const isEditandActive = ( isEdit && client ) ? true:  false;
+
     // estado del formulario
     const [formClientValues, setFormClientValues] = useState({
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
+        name: isEditandActive ? client.name : '',
+        address: isEditandActive ? client.address : '',
+        phone: isEditandActive ? client.phone : '',
+        email: isEditandActive ? client.email : '',
     })
 
     const { name, address, phone, email } = formClientValues;

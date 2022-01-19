@@ -1,15 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+// componentes
 import ClientModal from '../../ui/modals/client/ClientModal';
 
 // estilos css
 import '../Tables.css';
 
 // actions
+import { activeClient, openModalClient } from '../../../actions/clientsAction';
 
 const ClientTable = () => {
 
+    // accediendo al state de clientes
     const { clients } = useSelector(state => state.clients);
+
+    // dispatch para los actions
+    const dispatch = useDispatch();
+
+    // función para actualizar datos
+    const handleUpdateClient = ( client ) => {
+        dispatch( activeClient( client ) );
+        dispatch( openModalClient() );
+
+    }
 
     return (
         <div className='table__container'>
@@ -46,6 +60,7 @@ const ClientTable = () => {
                                 <div className='actions'>
                                 <button 
                                         className="action action-update"
+                                        onClick={ () => handleUpdateClient( client ) }
                                     >
                                         <i className="fas fa-user-edit"></i>
                                     </button>
