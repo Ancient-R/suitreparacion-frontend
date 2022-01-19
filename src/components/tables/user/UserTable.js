@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../../../actions/usersActions';
-import ActionsTable from '../ActionsTable';
 
 import '../Tables.css';
+
+// userActions.js
+import { activeUser, deleteUser, getUsers } from '../../../actions/usersActions';
+
+// helper
+import { alertDelete } from '../../../helpers/Alert';
 
 const UserTable = () => {
 
@@ -14,7 +18,15 @@ const UserTable = () => {
     const { logged, permissions } = useSelector(state => state.auth);
     const { users } = useSelector(state => state.users);
 
+    // estado para paginación
     const [page, setPage] = useState(1);
+
+    // función para eliminar usuario
+    const handleDelete = ( id ) => {
+        dispatch( activeUser( id ) );
+        alertDelete( id, dispatch, deleteUser );
+
+    }
 
     useEffect( () => {
         if( logged && permissions === 'administrador') dispatch( getUsers( page ) );
@@ -51,13 +63,22 @@ const UserTable = () => {
                             <tr 
                                 className="table__row"
                                 key={ user._id }
+                                data-id={ user._id }
 
                             >
                                 <td className="row__body">{ user.name }</td>
                                 <td className="row__body">{ user.permissions }</td>
                                 <td className="row__body">{ user.status }</td>
                                 <td className="row__body actions">
-                                    <ActionsTable />
+                                    <button className="action action-update">
+                                        <i className="fas fa-user-edit"></i>
+                                    </button>
+                                    <button 
+                                        className="action action-delete"
+                                        onClick={ () => handleDelete( user._id ) }
+                                    >
+                                        <i className="fas fa-user-times"></i>
+                                    </button>
                                 </td>
                             </tr>
                         )
