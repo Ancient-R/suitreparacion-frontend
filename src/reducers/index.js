@@ -4,9 +4,11 @@ import { combineReducers } from 'redux';
 import { authReducer } from './authReducer';
 import { alertReducer } from './alertReducer';
 import { usersReducer } from './usersReducer';
+import { clientsReducer } from './clientsReducer';
 
 export default combineReducers({
     alert: alertReducer,
     auth: authReducer,
-    users: usersReducer
+    users: usersReducer,
+    clients: clientsReducer
 });
