@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_CLIENTE_ERROR, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -191,6 +191,56 @@ export const updateClient = ( client, id ) => {
                 });
             }, 3000);
         
+        }
+    }
+}
+
+// función para eliminar cliente
+export const deleteClient = ( id ) => {
+    return async ( dispatch ) => {
+        try {
+            
+            const res = await clientAxios.delete(`${ url }/delete-client/${ id }`);
+
+            if( res.data.ok ){
+
+                dispatch({
+                    type: ELIMINAR_CLIENTE_CORRECTO
+                });
+
+                dispatch({
+                    type: MOSTRAR_ALERTA,
+                    payload: res.data.msg
+                });
+
+                Alert('¡Correcto!', res.data.msg, 'success');
+
+                setTimeout(() => {
+                    dispatch({
+                        type: OCULTAR_ALERTA
+                    });
+                }, 3000);
+
+            }
+        } catch (error) {
+            const err = await error.response;
+
+            dispatch({
+                type: ELIMINAR_CLIENTE_ERROR
+            });
+
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+
+            Alert('¡Error!', err.data.msg, 'error');
+
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
         }
     }
 }

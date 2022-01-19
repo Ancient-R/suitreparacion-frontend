@@ -8,7 +8,10 @@ import ClientModal from '../../ui/modals/client/ClientModal';
 import '../Tables.css';
 
 // actions
-import { activeClient, openModalClient } from '../../../actions/clientsAction';
+import { activeClient, deleteClient, openModalClient } from '../../../actions/clientsAction';
+
+// helper alerta de eliminar
+import { alertDelete } from '../../../helpers/Alert';
 
 const ClientTable = () => {
 
@@ -23,6 +26,12 @@ const ClientTable = () => {
         dispatch( activeClient( client ) );
         dispatch( openModalClient() );
 
+    }
+
+    // función para eliminar datos
+    const handleDeleteClient = ( client ) => {
+        dispatch( activeClient( client ));
+        alertDelete( client._id, dispatch, deleteClient );
     }
 
     return (
@@ -66,6 +75,7 @@ const ClientTable = () => {
                                     </button>
                                     <button 
                                         className="action action-delete"
+                                        onClick={ () => handleDeleteClient( client ) }
                                     >
                                         <i className="fas fa-user-times"></i>
                                     </button>

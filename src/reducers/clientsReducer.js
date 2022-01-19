@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
 
 const initialState = {
     clients: null,
@@ -26,6 +26,7 @@ export const clientsReducer = ( state = initialState, action ) => {
         case AGREGAR_CLIENTE_CORRECTO:
         case AGREGAR_CLIENTE_ERROR:
         case ACTUALIZAR_CLIENTE_ERROR:
+        case ELIMINAR_USUARIO_ERROR:
             return {
                 ...state
             }
@@ -55,6 +56,13 @@ export const clientsReducer = ( state = initialState, action ) => {
                 clients: state.clients.map( client => client._id === action.payload._id ? client = action.payload : client )
             }
 
+        case ELIMINAR_CLIENTE_CORRECTO:
+            return {
+                ...state,
+                clients: state.clients.filter( client => client._id !== state.client._id ),
+                client: null
+            }
+            
         default:
             return state
     }
