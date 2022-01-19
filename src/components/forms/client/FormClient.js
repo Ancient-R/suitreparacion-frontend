@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+// estilos css
 import '../Form.css';
+
+// actions
+import { newClient } from '../../../actions/clientsAction';
+
+// helpers
+import { Alert } from '../../../helpers/Alert';
+import { validateEmail, validatePhone } from '../../../helpers/validations';
+
 
 const FormClient = ({ isEdit }) => {
 
@@ -14,12 +24,42 @@ const FormClient = ({ isEdit }) => {
 
     const { name, address, phone, email } = formClientValues;
 
+    // dispatch para los acitions
+    const dispatch = useDispatch();
+
     // función para controlar los valores de los inputs
     const handleInputChange = e => {
         setFormClientValues({
             ...formClientValues,
             [ e.target.name ] : e.target.value
         });
+    }
+
+    // función submit para el formulario
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        // validación del formulario
+        if( name.trim().length < 5 ) return Alert('¡Error!', 'Ingresa un nombre valido', 'error');
+
+        if( address.trim().length < 5 ) return Alert('¡Error!', 'Ingresa una dirección valida', 'error');
+
+        if( phone.trim().length < 9 || !validatePhone( phone )) return Alert('¡Error!', 'Número de teléfono invalido', 'error');
+
+        if( email.trim().length < 5 || !email.includes('@') || !validateEmail( email )) return Alert('¡Error!', 'Ingresa un correo electronico valido', 'error');
+
+        dispatch( newClient(formClientValues ) );
+
+    }
+
+    // función para limpiar el formulario
+    const handleCleanForm = () => {
+        setFormClientValues({
+            name: '',
+            address: '',
+            phone: '',
+            email: '',
+        })
     }
 
     return (
@@ -110,6 +150,8 @@ const FormClient = ({ isEdit }) => {
                             type="submit"
                             className='form__submit form__submit--info hover'
                             value="Editar datos"
+                            onClick={ e => handleSubmit(e) }
+                            data-edit={ true }
                         />
 
                         :
@@ -117,12 +159,15 @@ const FormClient = ({ isEdit }) => {
                             type="submit"
                             className='form__submit form__submit--info hover'
                             value="Agregar cliente"
+                            onClick={e => handleSubmit(e) }
+                            data-submit={ true }
                         />
                     }
                     <input
                         type="button"
                         className='form__submit form__submit--info hover'
                         value="Limpiar formulario"
+                        onClick={ handleCleanForm }
                     />
                 </div>
 
