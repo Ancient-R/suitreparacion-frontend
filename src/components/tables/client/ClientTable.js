@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // componentes
@@ -12,6 +12,7 @@ import { activeClient, deleteClient, openModalClient } from '../../../actions/cl
 
 // helper alerta de eliminar
 import { alertDelete } from '../../../helpers/Alert';
+import TablePagination from '../pagination/TablePagination';
 
 const ClientTable = () => {
 
@@ -20,6 +21,10 @@ const ClientTable = () => {
 
     // dispatch para los actions
     const dispatch = useDispatch();
+
+    // estado para paginación
+        // eslint-disable-next-line
+    const [page, setPage] = useState(1);
 
     // función para actualizar datos
     const handleUpdateClient = ( client ) => {
@@ -91,6 +96,9 @@ const ClientTable = () => {
                 </tbody>
             </table>
 
+            <TablePagination 
+                setPage={ setPage }
+            />
             {/* Modal para editar información de usuario */}
             <ClientModal />
         </div>
