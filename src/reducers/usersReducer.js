@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_USUARIO_CORRECTO, ACTUALIZAR_USUARIO_ERROR, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
 
 const initialState = {
     users: null,
@@ -31,10 +31,11 @@ export const usersReducer = ( state = initialState, action ) => {
         case AGREGAR_USUARIO_CORRECTO:
             return {
                 ...state,
-                users: [ ...state.users, action.payload ]
+                users: state.users
             }
 
         case AGREGAR_USUARIO_ERROR:
+        case ACTUALIZAR_USUARIO_ERROR:
         case ELIMINAR_USUARIO_ERROR:
             return {
                 ...state
@@ -58,6 +59,14 @@ export const usersReducer = ( state = initialState, action ) => {
                 isOpenUserModal: false,
                 user: null
             }
+
+        case ACTUALIZAR_USUARIO_CORRECTO:
+            console.log( action.payload );
+            return {
+                ...state,
+                users: state.users.map( user => user._id === action.payload._id ? user = action.payload : user )
+            }
+        
         
         case ELIMINAR_USUARIO_CORRECTO:
             return {

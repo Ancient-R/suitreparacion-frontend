@@ -1,4 +1,4 @@
-import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA, USUARIO_SELECCIONADO, ABRIR_MODAL, CERRAR_MODAL } from '../types';
+import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA, USUARIO_SELECCIONADO, ABRIR_MODAL, CERRAR_MODAL, ACTUALIZAR_USUARIO_ERROR, ACTUALIZAR_USUARIO_CORRECTO } from '../types';
 
 // axios para consulta a la DB
 import clientAxios from '../axios/axios';
@@ -74,6 +74,8 @@ export const newUser = ( user ) => {
                         type: OCULTAR_ALERTA
                     });
                 }, 3000);
+
+                getUsers();
             }
             
         } catch (error) {
@@ -143,6 +145,84 @@ export const activeUser = ( user ) => {
             type: USUARIO_SELECCIONADO,
             payload: user
         });
+    }
+}
+
+// función para editar un usuario de la DB
+export const updateUser = ( user, id ) => {
+    return async ( dispatch ) => {
+
+        try {
+
+            const res = await clientAxios.put(`${ url }/update-user/${ id }`, user );
+        
+            // se agrega el id al usuario, debido a que no lo tiene
+            user._id = id;
+            
+            if( res.data.ok ){
+
+        
+                dispatch({
+                    type: ACTUALIZAR_USUARIO_CORRECTO,
+                    payload: user
+                });
+        
+        
+                dispatch({
+                    type: MOSTRAR_ALERTA,
+                    payload: res.data.msg
+                });
+        
+                Alert('¡Correcto!', res.data.msg, 'success');
+        
+                setTimeout(() => {
+                    dispatch({
+                        type: OCULTAR_ALERTA
+                    });
+                }, 3000);
+
+                dispatch( closeModal() );
+        
+            }
+            
+        } catch (error) {
+            const err = await error.response;
+        
+            dispatch({
+                type: ACTUALIZAR_USUARIO_ERROR
+            });
+        
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+        
+            Alert('¡Error!', err.data.msg, 'error');
+        
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
+        
+        
+            // debido a que en el backend hay validación, puede retornar un arreglo de errores
+            // valida que exista ese arreglo
+            if( err.data.errors !== undefined){
+                dispatch({
+                    type: MOSTRAR_ALERTA,
+                    payload: err.data.errors.password.msg
+                });
+        
+                Alert('¡Error!', err.data.errors.password.msg, 'error' );
+        
+                setTimeout( () => {
+                    dispatch({
+                        type: OCULTAR_ALERTA
+                    })
+                }, 3000)
+            }            
+        }
     }
 }
 
