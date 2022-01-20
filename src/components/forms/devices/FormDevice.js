@@ -8,7 +8,7 @@ import { Alert } from '../../../helpers/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 
 // actions
-import { newDevice } from '../../../actions/devicesActions';
+import { newDevice, updateDevice } from '../../../actions/devicesActions';
 
 const FormDevice = ({ isEdit }) => {
 
@@ -16,7 +16,7 @@ const FormDevice = ({ isEdit }) => {
     const { device } = useSelector( state => state.devices );
 
     // accediendo al state de auth
-    const{ permissions } = useSelector( state => state.auth );
+    const{ user, permissions } = useSelector( state => state.auth );
     const userPermissions = ( permissions === 'administrador' || permissions === 'recepcionista') ? true : false;
 
     // variable que almacena true o false, dependiendo de la condición, ( si "isEdit es true" es que se quiere editar un dispositivo )
@@ -28,7 +28,7 @@ const FormDevice = ({ isEdit }) => {
         brand: isEditandActive ? device.brand : '',
         model: isEditandActive ? device.model : '',
         comentary: isEditandActive ? device.comentary : '',
-        status: isEditandActive ? device.estatus : 'nuevo ingreso',
+        status: isEditandActive ? device.status : 'nuevo ingreso',
         comentaryTec: isEditandActive ? device.comentaryTec : '',
         lastUpdate: isEditandActive ? device.lastUpdate : '',
         date: isEditandActive ? device.date : '',
@@ -60,7 +60,7 @@ const FormDevice = ({ isEdit }) => {
 
         if( e.target.dataset.submit ) dispatch( newDevice( formDevicesValues ));
 
-        if( e.target.dataset.edit ) console.log('editando datos');
+        if( e.target.dataset.edit ) dispatch( updateDevice( formDevicesValues, device._id ));
 
     }
 
@@ -254,6 +254,7 @@ const FormDevice = ({ isEdit }) => {
                                 type="submit"
                                 className='form__submit form__submit--info hover'
                                 value="Editar datos"
+                                onClick={ e => handleSubmit(e) }
                                 data-edit={ true }
                             />
                         </div>
@@ -265,7 +266,7 @@ const FormDevice = ({ isEdit }) => {
                                 type="submit"
                                 className='form__submit form__submit--info hover'
                                 value="Agregar dispositivo"
-                                onClick={ handleSubmit }
+                                onClick={ e => handleSubmit(e) }
                                 data-submit={ true }
                             />
                         </div>

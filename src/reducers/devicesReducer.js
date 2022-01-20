@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR } from '../types';
 
 const initialState = {
     devices: null,
@@ -25,6 +25,7 @@ export const devicesReducer = ( state = initialState, action ) => {
         case OBTENER_DISPOSITIVOS_ERROR:
         case AGREGAR_DISPOSITIVO_CORRECTO:
         case AGREGAR_DISPOSITIVO_ERROR:
+        case ACTUALIZAR_DISPOSITIVO_ERROR:
             return {
                 ...state
             }
@@ -46,6 +47,12 @@ export const devicesReducer = ( state = initialState, action ) => {
                 ...state,
                 isOpenDeviceModal: false,
                 device: null
+            }
+
+        case ACTUALIZAR_DISPOSITIVO_CORRECTO:
+            return {
+                ...state,
+                devices: state.devices.map( device => device._id === action.payload._id ? device = action.payload : device )
             }
 
         default:

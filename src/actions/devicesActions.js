@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -124,5 +124,65 @@ export const activeDevice = ( device ) => {
             type: DISPOSITIVO_SELECCIONADO,
             payload: device
         });
+    }
+}
+
+// función para actualizar dispositivos
+export const updateDevice = ( device, id ) => {
+    return async ( dispatch ) => {
+        try {
+
+            const res = await clientAxios.put(`${ url }/update-device/${ id }`, device );
+        
+            // se agrega el id al usuario, debido a que no lo tiene
+            device._id = id;
+            
+            if( res.data.ok ){
+
+        
+                dispatch({
+                    type: ACTUALIZAR_DISPOSITIVO_CORRECTO,
+                    payload: device
+                });
+        
+        
+                dispatch({
+                    type: MOSTRAR_ALERTA,
+                    payload: res.data.msg
+                });
+        
+                Alert('¡Correcto!', res.data.msg, 'success');
+        
+                setTimeout(() => {
+                    dispatch({
+                        type: OCULTAR_ALERTA
+                    });
+                }, 3000);
+
+                dispatch( closeModalDevice() );
+        
+            }
+            
+        } catch (error) {
+            const err = await error.response;
+        
+            dispatch({
+                type: ACTUALIZAR_DISPOSITIVO_ERROR
+            });
+        
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+        
+            Alert('¡Error!', err.data.msg, 'error');
+        
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
+        
+        }
     }
 }
