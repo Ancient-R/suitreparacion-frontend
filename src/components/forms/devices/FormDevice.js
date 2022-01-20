@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
+// estilos css
 import '../Form.css';
+
+// helpers
+import { Alert } from '../../../helpers/Alert';
 
 const FormDevice = ({ isEdit }) => {
 
@@ -20,6 +24,34 @@ const FormDevice = ({ isEdit }) => {
         setFormDevicesValues({
             ...formDevicesValues,
             [ e.target.name ] : e.target.value
+        });
+    }
+
+    // función submit para el formulario
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        // validación del formulario
+        if( name.trim().length < 3 ) return Alert('¡Error!', 'Ingresa un nombre valido', 'error');
+
+        if( brand.trim().length === '' ) return Alert('¡Error!', 'Ingresa un fabricante valido', 'error');
+
+        if( model.trim().length < 3 ) return Alert('¡Error!', 'Modelo invalido', 'error');
+
+        if( e.target.dataset.submit ) console.log('enviando datos');
+
+        if( e.target.dataset.edit ) console.log('editando datos');
+
+    }
+
+    // función para limpiar el formulario
+    const cleanForm = () => {
+        setFormDevicesValues({
+            name: '',
+            brand: '',
+            model: '',
+            comentary: '',
+            status: 'nuevo ingreso'
         });
     }
 
@@ -126,8 +158,9 @@ const FormDevice = ({ isEdit }) => {
                     <div className='form__field'>
                         <input
                             type="submit"
-                            className='form__submit form__submit--info  bg-yellow  hover'
+                            className='form__submit form__submit--info hover'
                             value="Editar datos"
+                            data-edit={ true }
                         />
                     </div>
 
@@ -136,8 +169,10 @@ const FormDevice = ({ isEdit }) => {
                     <div className='form__field'>
                         <input
                             type="submit"
-                            className='form__submit form__submit--info bg-green hover'
+                            className='form__submit form__submit--info hover'
                             value="Agregar dispositivo"
+                            onClick={ handleSubmit }
+                            data-submit={ true }
                         />
                     </div>
                 }
@@ -146,6 +181,7 @@ const FormDevice = ({ isEdit }) => {
                         type="button"
                         className='form__submit form__submit--info hover'
                         value="Limpiar formulario"
+                        onClick={ cleanForm }
                     />
 
             </div>
