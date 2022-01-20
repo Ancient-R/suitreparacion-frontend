@@ -7,6 +7,8 @@ const DevicesTable = () => {
 
     // accediendo al state de dispositivos
     const { devices } = useSelector( state => state.devices );
+    // accediendo al state auth
+    const { permissions } = useSelector( state => state.auth );
 
     // dispatch para los actions
     const dispatch = useDispatch();
@@ -55,11 +57,17 @@ const DevicesTable = () => {
                                     >
                                         <i className="fas fa-user-edit"></i>
                                     </button>
-                                    <button 
-                                        className="action action-delete"
-                                    >
-                                        <i className="fas fa-user-times"></i>
-                                    </button>
+                                    {/* Debido a que en el backend un usuario con permisos de tecnico no puede borrar dispositivos, este botón se muestra dependiendo de los permisos de cada usuario */}
+                                    { permissions === 'administrador' || permissions === 'recepcionista' ?
+                                        <button 
+                                            className="action action-delete"
+                                        >
+                                            <i className="fas fa-user-times"></i>
+                                        </button>
+
+                                        : null
+
+                                    }
                                 </td>
                             </tr>
                             )
