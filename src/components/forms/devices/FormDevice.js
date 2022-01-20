@@ -5,23 +5,36 @@ import '../Form.css';
 
 // helpers
 import { Alert } from '../../../helpers/Alert';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // actions
 import { newDevice } from '../../../actions/devicesActions';
 
 const FormDevice = ({ isEdit }) => {
 
+    // accediendo al state de dispositivos para saber si un dispositivo esta activo
+    const { device } = useSelector( state => state.devices );
+
+    // accediendo al state de auth
+    const{ permissions } = useSelector( state => state.auth );
+    const userPermissions = ( permissions === 'administrador' || permissions === 'recepcionista') ? true : false;
+
+    // variable que almacena true o false, dependiendo de la condición, ( si "isEdit es true" es que se quiere editar un dispositivo )
+    const isEditandActive = ( isEdit && device ) ? true:  false;
+
     // estado del formulario
     const [formDevicesValues, setFormDevicesValues] = useState({
-        name: '',
-        brand: '',
-        model: '',
-        comentary: '',
-        status: 'nuevo ingreso'
+        name: isEditandActive ? device.name : '',
+        brand: isEditandActive ? device.brand : '',
+        model: isEditandActive ? device.model : '',
+        comentary: isEditandActive ? device.comentary : '',
+        status: isEditandActive ? device.estatus : 'nuevo ingreso',
+        comentaryTec: isEditandActive ? device.comentaryTec : '',
+        lastUpdate: isEditandActive ? device.lastUpdate : '',
+        date: isEditandActive ? device.date : '',
     });
 
-    const { name, brand, model, comentary, status } = formDevicesValues;
+    const { name, brand, model, comentary, status, comentaryTec, lastUpdate, date } = formDevicesValues;
 
     // dispatch para los actions
     const dispatch = useDispatch();
@@ -58,20 +71,48 @@ const FormDevice = ({ isEdit }) => {
             brand: '',
             model: '',
             comentary: '',
-            status: 'nuevo ingreso'
+            status: 'nuevo ingreso',
+            comentaryTec: '',
         });
     }
 
     return (
         <>
+            { isEdit ? 
+                <h1 className='text-center'>Actualizar información de dispositivo</h1>
+                :
+                <h1 className='text-center'>Agregar dispositivo</h1>
+            }
             <form className='form form__user'>
                 <div className='form__fields--left'>
+
+                    {/* Si se está editando la información se tiene que mostrar este campo, en caso contrario, se oculta */}
+                    { isEdit ? 
+                        <div className='form__field'>
+                            <label
+                                className='form__label'
+                            >Fecha de ingreso: </label>
+                            <div className='form__container--input'>
+                                <i className="far fa-calendar-alt form__icon form__icon--info"></i>
+                                <input 
+                                    type="text"
+                                    className='form__input form__input--info'
+                                    name='date'
+                                    disabled={ true }
+                                    value={ date }
+                                    onChange={ handleInputChange }
+                                />
+                            </div>
+                        </div>
+                        : null
+                    }
+
                     <div className='form__field'>
                         <label
                             className='form__label'
                         >Tipo de dispositivo: </label>
                         <div className='form__container--input'>
-                            <i className="fas fa-user-circle form__icon form__icon--info"></i>
+                            <i className="fas fa-tablet-alt form__icon form__icon--info"></i>
                             <input 
                                 type="text"
                                 className='form__input form__input--info'
@@ -116,27 +157,6 @@ const FormDevice = ({ isEdit }) => {
                             />
                         </div>
                     </div>
-                </div>
-
-                <div className='form__fields--rigth'>
-                
-                    <div className='form__field'>
-                        <label
-                            className='form__label'
-                        >Comentarios: </label>
-                        <div>
-                            <textarea
-                                className='form__input form__input-text'
-                                rows="5"
-                                cols="30"
-                                placeholder='Si el equipo viene con detalles, es decir, cámara borrosa, le faltan botones, no carga, etc.'
-                                name='comentary'
-                                value={ comentary }
-                                onChange={ handleInputChange }
-                            >
-                            </textarea>
-                        </div>
-                    </div>
 
                     <div className='form__field'>
                         <label
@@ -159,6 +179,72 @@ const FormDevice = ({ isEdit }) => {
                             </select>
                         </div>
                     </div>
+                    
+                </div>
+
+                <div className='form__fields--rigth'>
+
+                    <div className='form__field'>
+                        <label
+                            className='form__label'
+                        >Daño reportado y observaciones: </label>
+                        <div>
+                            <textarea
+                                className='form__input form__input-text'
+                                rows="5"
+                                cols="30"
+                                placeholder='Si el equipo viene con detalles, es decir, cámara borrosa, le faltan botones, no carga, etc.'
+                                name='comentary'
+                                disabled={ userPermissions ? false : true }
+                                value={ comentary }
+                                onChange={ handleInputChange }
+                            >
+                            </textarea>
+                        </div>
+                    </div>
+
+                    {/* Si se está editando la información se tiene que mostrar este campo, en caso contrario, se oculta */}
+
+                    { isEdit ?
+                    <>
+                        <div className='form__field'>
+                            <label
+                                className='form__label'
+                            >Comentarios del técnico: </label>
+                            <div>
+                                <textarea
+                                    className='form__input form__input-text'
+                                    rows="5"
+                                    cols="30"
+                                    placeholder='Si el equipo viene con detalles, es decir, cámara borrosa, le faltan botones, no carga, etc.'
+                                    name='comentaryTec'
+                                    value={ comentaryTec }
+                                    onChange={ handleInputChange }
+                                >
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div className='form__field'>
+                            <label
+                                className='form__label'
+                            >Última actualización: </label>
+                            <div className='form__container--input'>
+                                <i className="fas fa-user-edit form__icon form__icon--info"></i>
+                                <input 
+                                    type="text"
+                                    className='form__input form__input--info'
+                                    disabled={ true }
+                                    name='lastUpdate'
+                                    value={ lastUpdate }
+                                    onChange={ handleInputChange }
+                                />
+                            </div>
+                        </div>
+                    </>
+                        : null
+                    }
+
                 </div>
 
                 <div className='form__field--actions'>
