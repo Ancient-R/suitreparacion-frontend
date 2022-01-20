@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// estilos css
 import '../Tables.css';
+
+// actions
+import { activeDevice, openModalDevice } from '../../../actions/devicesActions';
+import DeviceModal from '../../ui/modals/devices/DeviceModal';
 
 const DevicesTable = () => {
 
@@ -15,6 +20,12 @@ const DevicesTable = () => {
 
     // estado para paginación
     const [page, setPage] = useState(1);
+
+    // función para actualizar dispositivos
+    const handleUpdateDevice = ( device ) => {
+        dispatch( activeDevice( device ));
+        dispatch( openModalDevice() );
+    }
 
     return (
         <div className='table__container'>
@@ -54,6 +65,7 @@ const DevicesTable = () => {
                                 <td className="row__body actions">
                                     <button 
                                         className="action action-update"
+                                        onClick={ () => handleUpdateDevice( device ) }
                                     >
                                         <i className="fas fa-user-edit"></i>
                                     </button>
@@ -76,6 +88,9 @@ const DevicesTable = () => {
 
                 </tbody>
             </table>
+
+            {/* Modal para editar dispositivos */}
+            <DeviceModal />
         </div>
     );
 }

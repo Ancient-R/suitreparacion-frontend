@@ -6,7 +6,6 @@ import '../Pages.css'
 
 
 // componentes
-import FormDevice from '../../components/forms/devices/FormDevice';
 import DevicesTable from '../../components/tables/devices/DevicesTable';
 import Cards from '../../components/ui/cards/Cards';
 import NavBar from '../../components/ui/navbar/NavBar';
@@ -17,7 +16,7 @@ const Devices = () => {
 
 
     // accediendo al state de autenticación
-    const { logged, permissions } = useSelector( state => state.auth );
+    const { logged } = useSelector( state => state.auth );
 
     const dispatch = useDispatch();
     // dispatch para los actions
@@ -32,13 +31,6 @@ const Devices = () => {
             <NavBar />
             <div className="content__page">
                 <Cards />
-                {/* Debido a que en el backend un usuario con permisos de tecnico no puede borrar dispositivos, este botón se muestra dependiendo de los permisos de cada usuario */}
-                { permissions === 'administrador' || permissions === 'recepcionista' ?
-                    <FormDevice 
-                        isEdit={false}
-                    />
-                : null
-                }
 
                 <DevicesTable />
             </div>
