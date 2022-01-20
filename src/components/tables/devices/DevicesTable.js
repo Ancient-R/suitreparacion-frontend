@@ -1,9 +1,19 @@
-import React from 'react';
-import ActionsTable from '../ActionsTable';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import '../Tables.css';
 
 const DevicesTable = () => {
+
+    // accediendo al state de dispositivos
+    const { devices } = useSelector( state => state.devices );
+
+    // dispatch para los actions
+    const dispatch = useDispatch();
+
+    // estado para paginación
+    const [page, setPage] = useState(1);
+
     return (
         <div className='table__container'>
             <div className='table__search'>
@@ -29,60 +39,32 @@ const DevicesTable = () => {
                 </thead>
 
                 <tbody>
-
-                    <tr className="table__row">
-                        <td className="row__body">Impresora</td>
-                        <td className="row__body">10 de enero de 2022</td>
-                        <td className="row__body">Nuevo ingreso</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Mini componente</td>
-                        <td className="row__body">02 de enero de 2022</td>
-                        <td className="row__body">En revisión</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Impresora</td>
-                        <td className="row__body">10 de enero de 2022</td>
-                        <td className="row__body">Nuevo ingreso</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Mini componente</td>
-                        <td className="row__body">02 de enero de 2022</td>
-                        <td className="row__body">En revisión</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Impresora</td>
-                        <td className="row__body">10 de enero de 2022</td>
-                        <td className="row__body">Nuevo ingreso</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
-
-                    <tr className="table__row">
-                        <td className="row__body">Mini componente</td>
-                        <td className="row__body">02 de enero de 2022</td>
-                        <td className="row__body">En revisión</td>
-                        <td className="row__body actions">
-                            <ActionsTable />
-                        </td>
-                    </tr>
+                    {/* Mostrando los dispositivos de la DB */}
+                    { devices ?
+                        devices.map( device => 
+                            <tr 
+                                className="table__row"
+                                key={ device._id }
+                            >
+                                <td className="row__body">{ device.name }</td>
+                                <td className="row__body">{ device.date }</td>
+                                <td className="row__body">{ device.status }</td>
+                                <td className="row__body actions">
+                                    <button 
+                                        className="action action-update"
+                                    >
+                                        <i className="fas fa-user-edit"></i>
+                                    </button>
+                                    <button 
+                                        className="action action-delete"
+                                    >
+                                        <i className="fas fa-user-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            )
+                        : null
+                    }
 
                 </tbody>
             </table>
