@@ -13,6 +13,7 @@ import NavBar from '../../components/ui/navbar/NavBar';
 
 // actions
 import { getUsers } from '../../actions/usersActions';
+import UserGraph from '../../components/ui/graphics/user/UserGraph';
 
 const Users = () => {
 
@@ -31,6 +32,7 @@ const Users = () => {
             <NavBar />
             <div className="content__page">
                 <Cards />
+                <UserGraph />
                 <FormUser
                     isEdit={false}
                 />
