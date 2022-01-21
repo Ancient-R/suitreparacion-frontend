@@ -5,8 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../Tables.css';
 
 // actions
-import { activeDevice, openModalDevice } from '../../../actions/devicesActions';
+import { activeDevice, deleteDevice, openModalDevice } from '../../../actions/devicesActions';
 import DeviceModal from '../../ui/modals/devices/DeviceModal';
+
+// helpers
+import { alertDelete } from '../../../helpers/Alert';
 
 const DevicesTable = () => {
 
@@ -25,6 +28,12 @@ const DevicesTable = () => {
     const handleUpdateDevice = ( device ) => {
         dispatch( activeDevice( device ));
         dispatch( openModalDevice() );
+    }
+
+    // función para eliminar dispositivos
+    const handleDeleteDevice = ( device ) => {
+        dispatch( activeDevice( device ) );
+        alertDelete( device._id, dispatch, deleteDevice );
     }
 
     return (
@@ -73,6 +82,7 @@ const DevicesTable = () => {
                                     { permissions === 'administrador' || permissions === 'recepcionista' ?
                                         <button 
                                             className="action action-delete"
+                                            onClick= { () => handleDeleteDevice( device ) }
                                         >
                                             <i className="fas fa-user-times"></i>
                                         </button>

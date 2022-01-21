@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -183,6 +183,56 @@ export const updateDevice = ( device, id ) => {
                 });
             }, 3000);
         
+        }
+    }
+}
+
+// función para eliminar dispositivos
+export const deleteDevice = ( id ) => {
+    return async ( dispatch ) => {
+        try {
+            
+            const res = await clientAxios.delete(`${ url }/delete-device/${ id }`);
+
+            if( res.data.ok ){
+
+                dispatch({
+                    type: ELIMINAR_DISPOSITIVO_CORRECTO
+                });
+
+                dispatch({
+                    type: MOSTRAR_ALERTA,
+                    payload: res.data.msg
+                });
+
+                Alert('¡Correcto!', res.data.msg, 'success');
+
+                setTimeout(() => {
+                    dispatch({
+                        type: OCULTAR_ALERTA
+                    });
+                }, 3000);
+
+            }
+        } catch (error) {
+            const err = await error.response;
+
+            dispatch({
+                type: ELIMINAR_DISPOSITIVO_ERROR
+            });
+
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+
+            Alert('¡Error!', err.data.msg, 'error');
+
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
         }
     }
 }
