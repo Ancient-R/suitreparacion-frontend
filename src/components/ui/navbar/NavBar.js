@@ -1,19 +1,31 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+// estilos css
 import '../UI.css';
+
+// actions
 import { logoutUser } from '../../../actions/authActions';
+import { logoutCleanDevices } from '../../../actions/devicesActions';
+import { logoutCleanUsers } from '../../../actions/usersActions';
+import { logoutCleanClients } from '../../../actions/clientsAction';
 
 
 const NavBar = () => {
 
+    // dispatch para actions
     const dispatch = useDispatch();
+
+    // accediendo al state de auth
+    const { permissions } = useSelector( state => state.auth );
 
     // función para cerrar sesión
     const handleLogout = () => {
-
         dispatch( logoutUser() );
+        dispatch( logoutCleanUsers() );
+        dispatch( logoutCleanClients() );
+        dispatch( logoutCleanDevices() );
     }
 
     return (
@@ -27,8 +39,8 @@ const NavBar = () => {
 
             <ul className='menu'>
                 <NavLink 
-                    to="/usuarios"
-                    className={ ({isActive}) => `${isActive ? 'active' : ''}` }
+                    to={ permissions !== 'administrador' ? '/permisos-denegados' : '/usuarios'}
+                    className={ ({isActive}) => `${isActive ? 'active' :  ''}` }
                 >
                     <li className='menu__item'>
                         <i className="fas fa-users menu__item--icon"></i>
@@ -37,7 +49,7 @@ const NavBar = () => {
                 </NavLink>
 
                 <NavLink 
-                    to="/clientes"
+                    to={ permissions === 'administrador' || permissions === 'recepcionista' ? '/clientes' : '/permisos-denegados'}
                     className={ ({isActive}) => `${isActive ? 'active' : ''}` }
                 >
                     <li className='menu__item'>
