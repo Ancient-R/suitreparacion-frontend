@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_CLIENTES, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
+import { ABRIR_MODAL_CLIENTE, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL_CLIENTE, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_CLIENTES, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
 
 const initialState = {
     clients: null,
@@ -37,13 +37,13 @@ export const clientsReducer = ( state = initialState, action ) => {
                 client: action.payload
             }
 
-        case ABRIR_MODAL:
+        case ABRIR_MODAL_CLIENTE:
             return {
                 ...state,
                 isOpenClientModal: true
             }
 
-        case CERRAR_MODAL:
+        case CERRAR_MODAL_CLIENTE:
             return {
                 ...state,
                 isOpenClientModal: false,

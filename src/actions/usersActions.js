@@ -1,4 +1,4 @@
-import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA, USUARIO_SELECCIONADO, ABRIR_MODAL, CERRAR_MODAL, ACTUALIZAR_USUARIO_ERROR, ACTUALIZAR_USUARIO_CORRECTO, LIMPIAR_ESTADO_USUARIOS } from '../types';
+import { AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, MOSTRAR_ALERTA, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OCULTAR_ALERTA, USUARIO_SELECCIONADO, ACTUALIZAR_USUARIO_ERROR, ACTUALIZAR_USUARIO_CORRECTO, LIMPIAR_ESTADO_USUARIOS, ABRIR_MODAL_USUARIO, CERRAR_MODAL_USUARIO } from '../types';
 
 // axios para consulta a la DB
 import clientAxios from '../axios/axios';
@@ -123,7 +123,7 @@ export const newUser = ( user ) => {
 export const openModal = () => {
     return ( dispatch ) => {
         dispatch({
-            type: ABRIR_MODAL
+            type: ABRIR_MODAL_USUARIO
         });
     }
 }
@@ -132,7 +132,7 @@ export const openModal = () => {
 export const closeModal = () => {
     return ( dispatch ) => {
         dispatch({
-            type: CERRAR_MODAL
+            type: CERRAR_MODAL_USUARIO
         });
     }
 }

@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, ACTUALIZAR_USUARIO_CORRECTO, ACTUALIZAR_USUARIO_ERROR, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_USUARIOS, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
+import { ABRIR_MODAL_USUARIO, ACTUALIZAR_USUARIO_CORRECTO, ACTUALIZAR_USUARIO_ERROR, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL_USUARIO, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_USUARIOS, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
 
 const initialState = {
     users: null,
@@ -47,13 +47,13 @@ export const usersReducer = ( state = initialState, action ) => {
                 user: action.payload
             }
 
-        case ABRIR_MODAL:
+        case ABRIR_MODAL_USUARIO:
             return {
                 ...state,
                 isOpenUserModal: true
             }
 
-        case CERRAR_MODAL:
+        case CERRAR_MODAL_USUARIO:
             return {
                 ...state,
                 isOpenUserModal: false,
