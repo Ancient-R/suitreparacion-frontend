@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../Tables.css';
 
 // userActions.js
-import { activeUser, deleteUser, getUsers, openModal } from '../../../actions/usersActions';
+import { activeUser, deleteUser, openModal } from '../../../actions/usersActions';
 
 // helper
 import { alertDelete } from '../../../helpers/Alert';
@@ -16,11 +16,10 @@ const UserTable = () => {
     // función dispatch para los actions
     const dispatch = useDispatch();
 
-    // accediendo al state
-    const { logged, permissions } = useSelector(state => state.auth);
     const { users } = useSelector(state => state.users);
 
     // estado para paginación
+        // eslint-disable-next-line
     const [page, setPage] = useState(1);
 
 
@@ -36,12 +35,6 @@ const UserTable = () => {
         alertDelete( user._id, dispatch, deleteUser );
 
     }
-
-    useEffect( () => {
-        if( logged && permissions === 'administrador') dispatch( getUsers( page ) );
-
-        // eslint-disable-next-line
-    }, [ logged, permissions, page ]);
     
     return (
         <div className='table__container'>

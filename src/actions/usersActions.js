@@ -75,7 +75,7 @@ export const newUser = ( user ) => {
                     });
                 }, 3000);
 
-                getUsers();
+                dispatch( getUsers() );
             }
             
         } catch (error) {
