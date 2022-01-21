@@ -1,7 +1,7 @@
 import { INICIAR_SESION_CORRECTO, INICIAR_SESION_ERROR, USUARIO_AUTENTICADO, CERRAR_SESION } from "../types"
 
 const initialState = {
-    token: ( typeof window !== 'undefined') ? localStorage.getItem('suitreparacion-token') : '',
+    token: ( typeof window !== 'undefined') ? localStorage.getItem('suitreparacion-token') : null,
     user: null,
     permissions: null,
     logged: false,
