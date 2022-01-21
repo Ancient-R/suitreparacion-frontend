@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// estilos css
 import '../Tables.css';
+
+// componentes
+import UserModal from '../../ui/modals/user/UserModal';
+import UserTablePagination from './pagination/UserTablePagination';
 
 // userActions.js
 import { activeUser, deleteUser, openModal } from '../../../actions/usersActions';
 
 // helper
 import { alertDelete } from '../../../helpers/Alert';
-import UserModal from '../../ui/modals/user/UserModal';
-import TablePagination from '../pagination/TablePagination';
 
 const UserTable = () => {
 
@@ -92,7 +95,7 @@ const UserTable = () => {
                 </tbody>
             </table>
 
-            <TablePagination 
+            <UserTablePagination
                 setPage= { setPage }
             />
 

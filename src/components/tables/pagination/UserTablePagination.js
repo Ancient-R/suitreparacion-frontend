@@ -4,10 +4,9 @@ import { useSelector } from 'react-redux';
 // estilos css
 import '../Tables.css';
 
-const TablePagination = ({ setPage }) => {
+const UserTablePagination = ({ setPage }) => {
 
     const { actualPage, prevPage, nextPage }  = useSelector(state => state.users );
-
 
     return (
         
@@ -44,4 +43,4 @@ const TablePagination = ({ setPage }) => {
     );
 }
  
-export default TablePagination;
+export default UserTablePagination;
