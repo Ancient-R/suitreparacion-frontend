@@ -52,11 +52,11 @@ export const getDevices = ( page = 1, idClient ) => {
 }
 
 // función para agregar dispositivos
-export const newDevice = ( device ) => {
+export const newDevice = ( device, idClient ) => {
     return async ( dispatch ) => {
         
         try {
-            const res = await clientAxios.post(`${ url }/new-device`, device );
+            const res = await clientAxios.post(`${ url }/${ idClient }/new-device`, device );
             
             if( res.data.ok ){
 
@@ -77,7 +77,7 @@ export const newDevice = ( device ) => {
                     });
                 }, 3000);
 
-                dispatch( getDevices() );
+                dispatch( getDevices(1, idClient ) );
             }
             
         } catch (error) {

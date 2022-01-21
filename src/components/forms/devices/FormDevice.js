@@ -16,8 +16,11 @@ const FormDevice = ({ isEdit }) => {
     const { device } = useSelector( state => state.devices );
 
     // accediendo al state de auth
-    const{ user, permissions } = useSelector( state => state.auth );
+    const{ permissions } = useSelector( state => state.auth );
     const userPermissions = ( permissions === 'administrador' || permissions === 'recepcionista') ? true : false;
+
+    // accediendo al state de cliente para obtener su id, debido a que para agregar un dispositivo, se tiene que asociar a un cliente
+    const{ client } = useSelector( state => state.clients );
 
     // variable que almacena true o false, dependiendo de la condición, ( si "isEdit es true" es que se quiere editar un dispositivo )
     const isEditandActive = ( isEdit && device ) ? true:  false;
@@ -58,7 +61,7 @@ const FormDevice = ({ isEdit }) => {
 
         if( model.trim().length < 3 ) return Alert('¡Error!', 'Modelo invalido', 'error');
 
-        if( e.target.dataset.submit ) dispatch( newDevice( formDevicesValues ));
+        if( e.target.dataset.submit ) dispatch( newDevice( formDevicesValues, client._id ));
 
         if( e.target.dataset.edit ) dispatch( updateDevice( formDevicesValues, device._id ));
 
@@ -78,7 +81,7 @@ const FormDevice = ({ isEdit }) => {
 
     return (
         <>
-            { isEdit ? 
+            { isEditandActive ? 
                 <h1 className='text-center'>Actualizar información de dispositivo</h1>
                 :
                 <h1 className='text-center'>Agregar dispositivo</h1>
@@ -87,7 +90,7 @@ const FormDevice = ({ isEdit }) => {
                 <div className='form__fields--left'>
 
                     {/* Si se está editando la información se tiene que mostrar este campo, en caso contrario, se oculta */}
-                    { isEdit ? 
+                    { isEditandActive ? 
                         <div className='form__field'>
                             <label
                                 className='form__label'
@@ -205,7 +208,7 @@ const FormDevice = ({ isEdit }) => {
 
                     {/* Si se está editando la información se tiene que mostrar este campo, en caso contrario, se oculta */}
 
-                    { isEdit ?
+                    { isEditandActive ?
                     <>
                         <div className='form__field'>
                             <label
@@ -248,7 +251,7 @@ const FormDevice = ({ isEdit }) => {
                 </div>
 
                 <div className='form__field--actions'>
-                    { isEdit ? 
+                    { isEditandActive ? 
                         <div className='form__field'>
                             <input
                                 type="submit"
