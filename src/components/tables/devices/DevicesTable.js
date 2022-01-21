@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // estilos css
@@ -9,17 +9,21 @@ import DeviceModal from '../../ui/modals/devices/DeviceModal';
 import DeviceTablePagination from './DeviceTablePagination';
 
 // actions
-import { activeDevice, deleteDevice, openModalDevice } from '../../../actions/devicesActions';
+import { activeDevice, deleteDevice, getDevices, openModalDevice } from '../../../actions/devicesActions';
 
 // helpers
 import { alertDelete } from '../../../helpers/Alert';
 
 const DevicesTable = () => {
 
+    // accediendo al state de autenticación
+    const { logged, permissions } = useSelector( state => state.auth );
+
+    // accediendo al state para saber si se está editando la información de un cliente, esto es con el fin de que se obtengan los dispositivos de ese cliente
+    const { client } = useSelector( state => state.clients );
+
     // accediendo al state de dispositivos
     const { devices } = useSelector( state => state.devices );
-    // accediendo al state auth
-    const { permissions } = useSelector( state => state.auth );
 
     // dispatch para los actions
     const dispatch = useDispatch();
@@ -40,8 +44,23 @@ const DevicesTable = () => {
         alertDelete( device._id, dispatch, deleteDevice );
     }
 
+    useEffect( () => {
+
+        // verifica que tenga permisos el usuario y además se este editando la información, para así obtener los dispositivos de ese cliente
+        if( ( permissions === 'administrador' || permissions === 'recepcionista') && client ) dispatch( getDevices( page, client._id ) );
+
+        if( logged && !client ) dispatch( getDevices( page, null ) );
+        
+
+        // eslint-disable-next-line
+    }, [ logged, permissions ]);
+
     return (
         <div className='table__container'>
+            { client ? 
+                <h1 className='text-center'>Dispositivos del cliente</h1>
+                :null
+            }
             <div className='table__search'>
                 <small>Filtrar por: </small>
                 <select
@@ -63,6 +82,7 @@ const DevicesTable = () => {
                         <th className='table__head--row'>Acciones</th>
                     </tr>
                 </thead>
+
 
                 <tbody>
                     {/* Mostrando los dispositivos de la DB */}

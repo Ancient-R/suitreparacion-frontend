@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
 // estilos css
 import '../Pages.css'
@@ -10,22 +9,8 @@ import DevicesTable from '../../components/tables/devices/DevicesTable';
 import Cards from '../../components/ui/cards/Cards';
 import NavBar from '../../components/ui/navbar/NavBar';
 
-// actions 
-import { getDevices } from '../../actions/devicesActions';
 const Devices = () => {
-
-
-    // accediendo al state de autenticación
-    const { logged } = useSelector( state => state.auth );
-
-    const dispatch = useDispatch();
-    // dispatch para los actions
-    useEffect( () => {
-
-        if( logged ) dispatch( getDevices() );
-
-        // eslint-disable-next-line
-    }, [ logged ]);
+    
     return (
         <div className='container__page'>
             <NavBar />
