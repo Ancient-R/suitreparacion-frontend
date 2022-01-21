@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, LIMPIAR_ESTADO_DISPOSITIVOS, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR } from '../types';
 
 const initialState = {
     devices: null,
@@ -61,6 +61,17 @@ export const devicesReducer = ( state = initialState, action ) => {
                 ...state,
                 devices: state.devices.filter( device => device._id !== state.device._id ),
                 device: null
+            }
+
+        case LIMPIAR_ESTADO_DISPOSITIVOS:
+            return {
+                devices: null,
+                device: null,
+                isOpenDeviceModal: false,
+
+                actualPage: null,
+                prevPage: null,
+                nextPage: null
             }
 
         default:

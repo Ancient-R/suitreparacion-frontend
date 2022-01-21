@@ -1,4 +1,4 @@
-import { ABRIR_MODAL, ACTUALIZAR_USUARIO_CORRECTO, ACTUALIZAR_USUARIO_ERROR, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
+import { ABRIR_MODAL, ACTUALIZAR_USUARIO_CORRECTO, ACTUALIZAR_USUARIO_ERROR, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_USUARIOS, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
 
 const initialState = {
     users: null,
@@ -73,6 +73,18 @@ export const usersReducer = ( state = initialState, action ) => {
                 ...state,
                 users: state.users.filter( user => user._id !== state.user._id ),
                 user: null,
+            }
+
+        case LIMPIAR_ESTADO_USUARIOS:
+            return {
+                users: null,
+                user: null,
+                isOpenUserModal: false,
+    
+                actualPage: null,
+                totalPages: null,
+                prevPage: null,
+                nextPage: null
             }
 
         default:
