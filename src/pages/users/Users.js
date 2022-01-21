@@ -25,7 +25,7 @@ const Users = () => {
         if( logged && permissions === 'administrador') dispatch( getUsers() );
 
         // eslint-disable-next-line
-    }, [ logged, permissions, page ]);
+    }, [ logged, permissions ]);
     return (
         <div className='container__page'>
             <NavBar />
