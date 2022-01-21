@@ -6,10 +6,15 @@ import '../Form.css';
 
 // actions
 import { newClient, updateClient } from '../../../actions/clientsAction';
+import { openModalDevice } from '../../../actions/devicesActions';
 
 // helpers
 import { Alert } from '../../../helpers/Alert';
 import { validateEmail, validatePhone } from '../../../helpers/validations';
+
+// componentes
+import DevicesTable from '../../tables/devices/DevicesTable';
+import DeviceModal from '../../ui/modals/devices/DeviceModal';
 
 
 const FormClient = ({ isEdit }) => {
@@ -60,6 +65,11 @@ const FormClient = ({ isEdit }) => {
         if( e.target.dataset.edit ) dispatch( updateClient( formClientValues, client._id ) );
 
 
+    }
+
+    // función para agregar dispositivo
+    const handleNewDevice = () => {
+        dispatch( openModalDevice() );
     }
 
     // función para limpiar el formulario
@@ -156,6 +166,7 @@ const FormClient = ({ isEdit }) => {
                 <div className='form__field--actions'>
 
                     { isEdit ? 
+                    <>
                         <input
                             type="submit"
                             className='form__submit form__submit--info hover'
@@ -163,6 +174,14 @@ const FormClient = ({ isEdit }) => {
                             onClick={ e => handleSubmit(e) }
                             data-edit={ true }
                         />
+
+                        <input
+                            type="button"
+                            className='form__submit form__submit--info hover'
+                            value="Agregar dispositivo"
+                            onClick={ handleNewDevice }
+                        />
+                    </>
 
                         :
                         <input
@@ -182,6 +201,13 @@ const FormClient = ({ isEdit }) => {
                 </div>
 
             </form>
+
+            { isEdit && client ? 
+                    <DevicesTable />
+                    : null
+                }
+
+            <DeviceModal />
         </>
     );
 }

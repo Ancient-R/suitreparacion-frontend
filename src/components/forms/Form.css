@@ -160,10 +160,10 @@
 }
 
 .form__field--actions{    
-    margin-top: 15px;
-    width: 50%;
+    margin-top: 30px;
+    width:100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
