@@ -10,6 +10,7 @@ import DeviceModal from '../../ui/modals/devices/DeviceModal';
 
 // helpers
 import { alertDelete } from '../../../helpers/Alert';
+import TablePagination from '../pagination/TablePagination';
 
 const DevicesTable = () => {
 
@@ -22,6 +23,7 @@ const DevicesTable = () => {
     const dispatch = useDispatch();
 
     // estado para paginación
+        // eslint-disable-next-line
     const [page, setPage] = useState(1);
 
     // función para actualizar dispositivos
@@ -98,6 +100,10 @@ const DevicesTable = () => {
 
                 </tbody>
             </table>
+
+            <TablePagination 
+                setPage={ setPage }
+            />
 
             {/* Modal para editar dispositivos */}
             <DeviceModal />
