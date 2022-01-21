@@ -6,7 +6,7 @@ import '../Tables.css';
 
 // componentes
 import UserModal from '../../ui/modals/user/UserModal';
-import UserTablePagination from './pagination/UserTablePagination';
+import UserTablePagination from './UserTablePagination';
 
 // userActions.js
 import { activeUser, deleteUser, openModal } from '../../../actions/usersActions';

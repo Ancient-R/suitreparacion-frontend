@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 // estilos css
 import '../Tables.css';
 
+// componentes
+import DeviceModal from '../../ui/modals/devices/DeviceModal';
+import DeviceTablePagination from './DeviceTablePagination';
+
 // actions
 import { activeDevice, deleteDevice, openModalDevice } from '../../../actions/devicesActions';
-import DeviceModal from '../../ui/modals/devices/DeviceModal';
 
 // helpers
 import { alertDelete } from '../../../helpers/Alert';
-import TablePagination from '../pagination/TablePagination';
 
 const DevicesTable = () => {
 
@@ -101,7 +103,7 @@ const DevicesTable = () => {
                 </tbody>
             </table>
 
-            <TablePagination 
+            <DeviceTablePagination
                 setPage={ setPage }
             />
 

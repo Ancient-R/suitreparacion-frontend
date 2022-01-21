@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // componentes
 import ClientModal from '../../ui/modals/client/ClientModal';
+import ClientTablePagination from './ClientTablePagination';
 
 // estilos css
 import '../Tables.css';
@@ -12,7 +13,6 @@ import { activeClient, deleteClient, openModalClient } from '../../../actions/cl
 
 // helper alerta de eliminar
 import { alertDelete } from '../../../helpers/Alert';
-import TablePagination from '../pagination/TablePagination';
 
 const ClientTable = () => {
 
@@ -96,7 +96,7 @@ const ClientTable = () => {
                 </tbody>
             </table>
 
-            <TablePagination 
+            <ClientTablePagination
                 setPage={ setPage }
             />
             {/* Modal para editar información de usuario */}
