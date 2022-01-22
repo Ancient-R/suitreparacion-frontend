@@ -21,8 +21,10 @@ export const authReducer = ( state = initialState, action ) => {
             }
 
         case INICIAR_SESION_ERROR:
+            localStorage.removeItem('suitreparacion-token');
             return {
-                ...state
+                ...state,
+                token: null
             }
 
             case USUARIO_AUTENTICADO:
