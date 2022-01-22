@@ -1,4 +1,4 @@
-import { ABRIR_MODAL_DISPOSITIVO, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL_DISPOSITIVO, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, LIMPIAR_ESTADO_DISPOSITIVOS, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL_DISPOSITIVO, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL_DISPOSITIVO, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, LIMPIAR_ESTADO_DISPOSITIVOS, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OBTENER_ESTADO_DISPOSITIVOS_CORRECTO, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -163,7 +163,7 @@ export const updateDevice = ( device, id ) => {
                 }, 3000);
 
                 dispatch( closeModalDevice() );
-        
+                dispatch( getStatusDevices() );
             }
             
         } catch (error) {
@@ -236,6 +236,43 @@ export const deleteDevice = ( id ) => {
                     type: OCULTAR_ALERTA
                 });
             }, 3000);
+        }
+    }
+}
+
+// función que obtiene el total de dispositivos por estado
+export const getStatusDevices = () => {
+    return async ( dispatch ) => {
+
+        try {
+            
+            const res = await clientAxios.get(`${url}/get-status`);
+            
+            if( res.data.ok ){
+                dispatch({
+                    type: OBTENER_ESTADO_DISPOSITIVOS_CORRECTO,
+                    payload: res.data.status
+                });
+            }
+        } catch (error) {
+            const err = await error.response;
+
+            dispatch({
+                type: ELIMINAR_DISPOSITIVO_ERROR
+            });
+
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+
+            Alert('¡Error!', err.data.msg, 'error');
+
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);       
         }
     }
 }
