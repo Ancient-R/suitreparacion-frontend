@@ -10,12 +10,13 @@ import { Alert } from '../helpers/Alert';
 const url = '/api/suitreparacion/users';
 
 // función para obtener los usuarios de la DB
-export const getUsers = (page = 1 ) => {
+export const getUsers = (page = 1, search='' ) => {
     return async ( dispatch ) => {
         
         try {
             
-            const res = await clientAxios.get(`${url}/get-users/?page=${page}`);
+            const res = await clientAxios.get(`${url}/get-users/?page=${page}&search=${search}`);
+
             if( res.data.ok ){
 
                 dispatch({

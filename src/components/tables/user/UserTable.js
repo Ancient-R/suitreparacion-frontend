@@ -28,6 +28,19 @@ const UserTable = () => {
         // eslint-disable-next-line
     const [page, setPage] = useState(1);
 
+    // estado para formulario de búsqueda
+    const [ search, setSearch ] = useState('');
+
+    // función para manejar el estado del formulario
+    const handleInputChange = e => {
+        setSearch( e.target.value );
+        if( e.target.value === '') dispatch( getUsers() );
+    }
+
+    const handleSearch = e => {
+        if( e.key === 'Enter') dispatch( getUsers(1, search) );
+    }
+
 
     // función para editar usuario
     const handleUpdate = ( user ) => {
@@ -53,12 +66,17 @@ const UserTable = () => {
         <div className='table__container'>
             <div className='table__search'>
                 <i 
-                    className="fas fa-search table__search--icon bg-purple"
+                    className="fas fa-search table__search--icon"
+                    onClick={ handleSearch }
                 ></i>
                 <input 
                     type="text" 
                     className="table__search--input" 
                     placeholder="Ej papi-02"
+                    name="search"
+                    value={ search }
+                    onChange={ handleInputChange }
+                    onKeyPress={ handleSearch }
                 />
             </div>
             <table className='table'>

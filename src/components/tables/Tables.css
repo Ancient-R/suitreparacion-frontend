@@ -4,6 +4,7 @@
     overflow-y: auto;
     overflow-x: auto;
     margin-top: 3rem;
+    padding: 1rem;
 }
 
 .table__search{
@@ -15,6 +16,9 @@
 
 .table__search--icon{
     padding: 0.45rem;
+    background-color: var(--element-color);
+    color: var(--light-color);
+    cursor: pointer;
 }
 
 .table__search--input{
