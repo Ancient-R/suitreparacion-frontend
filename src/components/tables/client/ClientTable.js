@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // componentes
@@ -9,7 +9,7 @@ import ClientTablePagination from './ClientTablePagination';
 import '../Tables.css';
 
 // actions
-import { activeClient, deleteClient, openModalClient } from '../../../actions/clientsAction';
+import { activeClient, deleteClient, getClients, openModalClient } from '../../../actions/clientsAction';
 
 // helper alerta de eliminar
 import { alertDelete } from '../../../helpers/Alert';
@@ -18,6 +18,9 @@ const ClientTable = () => {
 
     // accediendo al state de clientes
     const { clients } = useSelector(state => state.clients);
+
+    // accediendo al state de usuarios
+    const { logged, permissions } = useSelector(state => state.auth);
 
     // dispatch para los actions
     const dispatch = useDispatch();
@@ -39,6 +42,13 @@ const ClientTable = () => {
         alertDelete( client._id, dispatch, deleteClient );
     }
 
+    useEffect(() => {
+
+        if( logged && ( permissions === 'administrador' || permissions === 'recepcionista') ) dispatch( getClients( page ) );
+
+
+        // eslint-disable-next-line
+    }, [ logged, permissions, page ]);
     return (
         <div className='table__container'>
             <div className='table__search'>
