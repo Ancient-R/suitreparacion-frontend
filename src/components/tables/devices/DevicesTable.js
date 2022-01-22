@@ -32,6 +32,14 @@ const DevicesTable = () => {
         // eslint-disable-next-line
     const [page, setPage] = useState(1);
 
+    // estado para formulario de búsqueda
+    const [ search, setSearch ] = useState('');
+
+    // función para manejar el estado del formulario
+    const handleInputChange = e => {
+        setSearch( e.target.value );
+    }
+
     // función para actualizar dispositivos
     const handleUpdateDevice = ( device ) => {
         dispatch( activeDevice( device ));
@@ -46,14 +54,19 @@ const DevicesTable = () => {
 
     useEffect( () => {
 
-        // verifica que tenga permisos el usuario y además se este editando la información, para así obtener los dispositivos de ese cliente
-        if( ( permissions === 'administrador' || permissions === 'recepcionista') && client ) dispatch( getDevices( page, client._id ) );
+        // verifica que exista una busqueda y un cliente, esto es útil para cuando un "administrador o recepcionista" quieran agregar un nuevo dispositivo a un cliente
+        if( client && search === '' || client && search !== '' ) dispatch( getDevices( page, search, client._id ));
 
-        if( logged && !client ) dispatch( getDevices( page, null ) );
+        // verifica que exista una busqueda, pero no un cliente, esto es útil para cuando un "tecnico" necesite actualizar un dispositivo, debido a que ellos no pueden agregar, solo actualizar información
+        if( !client && search === '' || !client && search !=='' ) dispatch( getDevices(page, search, null ));
+
+
+        if( logged && !client && search === '' ) dispatch( getDevices( page, search, null ) );
+
         
 
         // eslint-disable-next-line
-    }, [ logged, permissions, page ]);
+    }, [ logged, permissions, page, search ]);
 
     return (
         <div className='table__container'>
@@ -65,7 +78,11 @@ const DevicesTable = () => {
                 <small>Filtrar por: </small>
                 <select
                     className="table__search--input" 
+                    name='search'
+                    value={ search }
+                    onChange={ handleInputChange }
                 >
+                    <option value="">No filtrar</option>
                     <option value="nuevo ingreso">Nuevo ingreso</option>
                     <option value="en revision">En revisión</option>
                     <option value="reparado">Reparado</option>

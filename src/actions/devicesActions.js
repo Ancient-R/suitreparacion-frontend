@@ -10,12 +10,12 @@ import { Alert } from '../helpers/Alert';
 const url = '/api/suitreparacion/devices';
 
 // función para obtener dispositivos
-export const getDevices = ( page = 1, idClient ) => {
+export const getDevices = ( page = 1, search='', idClient = null  ) => {
     return async( dispatch ) => {
         try {
             
             // variable que almacena la url completa para hacer la consulta
-            const urlDevice = idClient ? `?page=${page}&idClient=${idClient}` : `?page=${page}`;
+            const urlDevice = idClient ? `?page=${page}&search=${search}&idClient=${idClient}` : `?page=${page}&search=${search}`;
 
             const res = await clientAxios.get(`${url}/get-devices/${urlDevice}`);
 
