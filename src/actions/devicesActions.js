@@ -216,6 +216,7 @@ export const deleteDevice = ( id ) => {
                     });
                 }, 3000);
 
+                dispatch( getStatusDevices() );
             }
         } catch (error) {
             const err = await error.response;
