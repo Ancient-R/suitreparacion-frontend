@@ -65,3 +65,16 @@
 .card__total{
     margin-left: 10px;
 }
+
+/* Estilos en componente UserGraphic.js */
+.graphic__container{
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.graphic__small{
+    display: block;
+    margin-top: 2rem;
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.5);
+}

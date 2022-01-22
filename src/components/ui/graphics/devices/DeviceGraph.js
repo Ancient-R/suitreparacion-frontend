@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar } from 'react-chartjs-2';
+import { useDispatch, useSelector } from 'react-redux';
 
 // estilos css
-import '../Graphics.css'
-import { useDispatch, useSelector } from 'react-redux';
+import '../../UI.css';
+
+
+// acitions
 import { getStatusDevices } from '../../../../actions/devicesActions';
 
 const DeviceGraph = () => {

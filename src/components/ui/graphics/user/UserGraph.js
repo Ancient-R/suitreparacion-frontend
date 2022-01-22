@@ -4,16 +4,19 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar } from 'react-chartjs-2';
 
 // estilos css
-import '../Graphics.css';
+import '../../UI.css';
 
 const UserGraph = () => {
 
     // accediendo al state de usuarios
     const { users } = useSelector( state => state.users );
     // labels para la grafica
-    const labels = users ? users.map( user => user.name ) : null;
+    const labels = users ? users.map( user => {
+            if(user.permissions !== 'tecnico') return user.name
+
+        }) : null;
     // valores a mostrar en la grafica
-    const clientsAdded = users ? users.map( user => user.clientsAdded ) : null;
+    const clientsAdded = users ? users.map( user => user.clientsAdded ? user.clientsAdded : 0) : null;
 
     // accediendo a la variable root de css
     const elementColorAlt = document.styleSheets[1].cssRules[1].style.getPropertyValue('--element-color-alt');
@@ -53,6 +56,7 @@ const UserGraph = () => {
                 options={ options }
                 data={ data }
             />
+            <small className='graphic__small text-center'>Los usuarios con permisos de "tecnico" se muestran en 0 debido a que ellos no pueden agregar clientes</small>
         </div>
     );
 }
