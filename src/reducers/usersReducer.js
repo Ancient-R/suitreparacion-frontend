@@ -61,7 +61,6 @@ export const usersReducer = ( state = initialState, action ) => {
             }
 
         case ACTUALIZAR_USUARIO_CORRECTO:
-            console.log( action.payload );
             return {
                 ...state,
                 users: state.users.map( user => user._id === action.payload._id ? user = action.payload : user )

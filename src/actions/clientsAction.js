@@ -138,8 +138,6 @@ export const updateClient = ( client, id ) => {
     return async ( dispatch ) => {
         try {
 
-            console.log( id );
-
             const res = await clientAxios.put(`${ url }/update-client/${ id }`, client );
         
             // se agrega el id al usuario, debido a que no lo tiene
