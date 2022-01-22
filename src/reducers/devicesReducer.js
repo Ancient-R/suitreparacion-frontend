@@ -16,6 +16,7 @@ export const devicesReducer = ( state = initialState, action ) => {
         
         case OBTENER_DISPOSITIVOS_CORRECTO:
             return{
+                ...state,
                 devices: action.payload.docs,
                 actualPage: action.payload.page,
                 prevPage: action.payload.prevPage,
