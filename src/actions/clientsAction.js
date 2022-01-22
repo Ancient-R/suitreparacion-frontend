@@ -11,12 +11,12 @@ const url = '/api/suitreparacion/clients';
 
 
 // función para obtener clientes
-export const getClients = ( page = 1 ) => {
+export const getClients = ( page = 1, search = '' ) => {
     
     return async ( dispatch ) => {
         try {
             
-            const res = await clientAxios.get(`${url}/get-clients/?page=${page}`);
+            const res = await clientAxios.get(`${url}/get-clients/?page=${page}&search=${search}`);
 
             if( res.data.ok ){
 

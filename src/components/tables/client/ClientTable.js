@@ -29,6 +29,19 @@ const ClientTable = () => {
         // eslint-disable-next-line
     const [page, setPage] = useState(1);
 
+    // estado para formulario de búsqueda
+    const [ search, setSearch ] = useState('');
+
+    // función para manejar el estado del formulario
+    const handleInputChange = e => {
+        setSearch( e.target.value );
+        if( e.target.value === '') dispatch( getClients(page) );
+    }
+
+    const handleSearch = e => {
+        if( e.key === 'Enter') dispatch( getClients(1, search ) );
+    }
+
     // función para actualizar datos
     const handleUpdateClient = ( client ) => {
         dispatch( activeClient( client ) );
@@ -53,12 +66,16 @@ const ClientTable = () => {
         <div className='table__container'>
             <div className='table__search'>
                 <i 
-                    className="fas fa-search table__search--icon bg-purple"
+                    className="fas fa-search table__search--icon"
                 ></i>
                 <input 
                     type="text" 
                     className="table__search--input" 
                     placeholder="Ej papi-02"
+                    name="search"
+                    value={ search }
+                    onChange={ handleInputChange }
+                    onKeyPress={ handleSearch }
                 />
             </div>
             <table className='table'>
