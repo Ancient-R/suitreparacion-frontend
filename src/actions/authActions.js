@@ -15,6 +15,7 @@ export const startLogin = ( user ) => {
             
             if( userData.ok ) {
                 dispatch( loginUser( userData ));
+                dispatch( authUser(userData.token ) );
             }
 
         } catch (error) {

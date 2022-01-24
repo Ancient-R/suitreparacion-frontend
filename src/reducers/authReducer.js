@@ -13,7 +13,6 @@ export const authReducer = ( state = initialState, action ) => {
         case INICIAR_SESION_CORRECTO:
             localStorage.setItem('suitreparacion-token', action.payload.token );
             return {
-                ...state,
                 token: action.payload.token,
                 user: action.payload.name,
                 permissions: action.payload.permissions,
@@ -39,7 +38,6 @@ export const authReducer = ( state = initialState, action ) => {
             case CERRAR_SESION:
                 localStorage.removeItem('suitreparacion-token');
                 return{
-                    ...state,
                     token: null,
                     user: null,
                     permissions: null,
