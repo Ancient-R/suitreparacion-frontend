@@ -1,4 +1,4 @@
-import { ABRIR_MODAL_CLIENTE, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL_CLIENTE, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_CLIENTE_ERROR, LIMPIAR_ESTADO_CLIENTES, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL_CLIENTE, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL_CLIENTE, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_CLIENTE_ERROR, LIMPIAR_ESTADO_CLIENTES, MOSTRAR_ALERTA, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OBTENER_CLIENTES_TOTAL, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -50,6 +50,39 @@ export const getClients = ( page = 1, search = '' ) => {
     }
 }
 
+// función para obtener el total de clientes
+export const getClientsTotal = () => {
+    return async( dispatch) => {
+
+        try {
+
+            const res = await clientAxios.get(`${url}/get-total-clients`);
+            
+            if( res.data.ok ){
+                dispatch({
+                    type: OBTENER_CLIENTES_TOTAL,
+                    payload: res.data.totalClients
+                });
+            }
+            
+        } catch (error) {
+            const err = await error.response;
+
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+
+            Alert('¡Error!', err.data.msg, 'error');
+
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
+        }
+    }
+}
 
 // función para agregar clientes
 export const newClient = ( client ) => {

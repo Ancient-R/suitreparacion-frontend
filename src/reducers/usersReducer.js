@@ -1,8 +1,9 @@
-import { ABRIR_MODAL_USUARIO, ACTUALIZAR_USUARIO_CORRECTO, ACTUALIZAR_USUARIO_ERROR, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL_USUARIO, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_USUARIOS, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, USUARIO_SELECCIONADO } from '../types';
+import { ABRIR_MODAL_USUARIO, ACTUALIZAR_USUARIO_CORRECTO, ACTUALIZAR_USUARIO_ERROR, AGREGAR_USUARIO_CORRECTO, AGREGAR_USUARIO_ERROR, CERRAR_MODAL_USUARIO, ELIMINAR_USUARIO_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_USUARIOS, OBTENER_USUARIOS_CORRECTO, OBTENER_USUARIOS_ERROR, OBTENER_USUARIOS_TOTAL, USUARIO_SELECCIONADO } from '../types';
 
 const initialState = {
     users: null,
     user: null,
+    usersTotal: null,
     isOpenUserModal: false,
     // estado para páginación por parte del backend
     actualPage: null,
@@ -16,11 +17,18 @@ export const usersReducer = ( state = initialState, action ) => {
         
         case OBTENER_USUARIOS_CORRECTO:
             return {
+                ...state,
                 users: action.payload.docs,
                 actualPage: action.payload.page,
                 totalPages: action.payload.totalPages,
                 prevPage: action.payload.prevPage,
                 nextPage: action.payload.nextPage
+            }
+
+        case OBTENER_USUARIOS_TOTAL:
+            return {
+                ...state,
+                usersTotal: action.payload
             }
 
         case OBTENER_USUARIOS_ERROR:
@@ -78,8 +86,9 @@ export const usersReducer = ( state = initialState, action ) => {
             return {
                 users: null,
                 user: null,
+                usersTotal: null,
                 isOpenUserModal: false,
-    
+
                 actualPage: null,
                 totalPages: null,
                 prevPage: null,

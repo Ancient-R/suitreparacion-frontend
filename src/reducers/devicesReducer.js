@@ -1,9 +1,10 @@
-import { ABRIR_MODAL_DISPOSITIVO, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL_DISPOSITIVO, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, LIMPIAR_ESTADO_DISPOSITIVOS, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OBTENER_ESTADO_DISPOSITIVOS_CORRECTO, OBTENER_ESTADO_DISPOSITIVOS_ERROR } from '../types';
+import { ABRIR_MODAL_DISPOSITIVO, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL_DISPOSITIVO, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, LIMPIAR_ESTADO_DISPOSITIVOS, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OBTENER_DISPOSITIVOS_TOTAL, OBTENER_ESTADO_DISPOSITIVOS_CORRECTO, OBTENER_ESTADO_DISPOSITIVOS_ERROR } from '../types';
 
 const initialState = {
     devices: null,
     device: null,
     devicesStatus: null,
+    devicesTotal: null,
     isOpenDeviceModal: false,
     // estado para paginación por parte del backend
     actualPage: null,
@@ -21,6 +22,12 @@ export const devicesReducer = ( state = initialState, action ) => {
                 actualPage: action.payload.page,
                 prevPage: action.payload.prevPage,
                 nextPage: action.payload.nextPage
+            }
+        
+        case OBTENER_DISPOSITIVOS_TOTAL:
+            return {
+                ...state,
+                devicesTotal: action.payload
             }
 
         case OBTENER_DISPOSITIVOS_ERROR:
@@ -75,6 +82,7 @@ export const devicesReducer = ( state = initialState, action ) => {
             return {
                 devices: null,
                 device: null,
+                devicesTotal: null,
                 isOpenDeviceModal: false,
 
                 actualPage: null,

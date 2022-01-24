@@ -1,4 +1,4 @@
-import { ABRIR_MODAL_DISPOSITIVO, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL_DISPOSITIVO, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, LIMPIAR_ESTADO_DISPOSITIVOS, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OBTENER_ESTADO_DISPOSITIVOS_CORRECTO, OCULTAR_ALERTA } from '../types';
+import { ABRIR_MODAL_DISPOSITIVO, ACTUALIZAR_DISPOSITIVO_CORRECTO, ACTUALIZAR_DISPOSITIVO_ERROR, AGREGAR_DISPOSITIVO_CORRECTO, AGREGAR_DISPOSITIVO_ERROR, CERRAR_MODAL_DISPOSITIVO, DISPOSITIVO_SELECCIONADO, ELIMINAR_DISPOSITIVO_CORRECTO, ELIMINAR_DISPOSITIVO_ERROR, LIMPIAR_ESTADO_DISPOSITIVOS, MOSTRAR_ALERTA, OBTENER_DISPOSITIVOS_CORRECTO, OBTENER_DISPOSITIVOS_ERROR, OBTENER_DISPOSITIVOS_TOTAL, OBTENER_ESTADO_DISPOSITIVOS_CORRECTO, OCULTAR_ALERTA } from '../types';
 
 // axios para consultas a la DB
 import clientAxios from '../axios/axios';
@@ -47,6 +47,40 @@ export const getDevices = ( page = 1, search='', idClient = null  ) => {
                 });
             }, 3000);
 
+        }
+    }
+}
+
+// función para obtener el total de dispositivos
+export const getDevicesTotal = () => {
+    return async( dispatch) => {
+
+        try {
+
+            const res = await clientAxios.get(`${url}/get-total-devices`);
+            
+            if( res.data.ok ){
+                dispatch({
+                    type: OBTENER_DISPOSITIVOS_TOTAL,
+                    payload: res.data.totalDevices
+                });
+            }
+            
+        } catch (error) {
+            const err = await error.response;
+
+            dispatch({
+                type: MOSTRAR_ALERTA,
+                payload: err.data.msg
+            });
+
+            Alert('¡Error!', err.data.msg, 'error');
+
+            setTimeout(() => {
+                dispatch({
+                    type: OCULTAR_ALERTA
+                });
+            }, 3000);
         }
     }
 }

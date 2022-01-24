@@ -1,8 +1,9 @@
-import { ABRIR_MODAL_CLIENTE, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL_CLIENTE, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_CLIENTES, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR } from '../types';
+import { ABRIR_MODAL_CLIENTE, ACTUALIZAR_CLIENTE_CORRECTO, ACTUALIZAR_CLIENTE_ERROR, AGREGAR_CLIENTE_CORRECTO, AGREGAR_CLIENTE_ERROR, CERRAR_MODAL_CLIENTE, CLIENTE_SELECCIONADO, ELIMINAR_CLIENTE_CORRECTO, ELIMINAR_USUARIO_ERROR, LIMPIAR_ESTADO_CLIENTES, OBTENER_CLIENTES_CORRECTO, OBTENER_CLIENTES_ERROR, OBTENER_CLIENTES_TOTAL } from '../types';
 
 const initialState = {
     clients: null,
     client: null,
+    clientsTotal: null,
     isOpenClientModal: false,
 
     // estado para paginación por parte del backend
@@ -16,10 +17,17 @@ export const clientsReducer = ( state = initialState, action ) => {
 
         case OBTENER_CLIENTES_CORRECTO:
             return {
+                ...state,
                 clients: action.payload.docs,
                 actualPage: action.payload.page,
                 prevPage: action.payload.prevPage,
                 nextPage: action.payload.nextPage
+            }
+
+        case OBTENER_CLIENTES_TOTAL:
+            return {
+                ...state,
+                clientsTotal: action.payload
             }
 
         case OBTENER_CLIENTES_ERROR:
@@ -67,6 +75,7 @@ export const clientsReducer = ( state = initialState, action ) => {
             return {
                 clients: null,
                 client: null,
+                clientsTotal: null,
                 isOpenClientModal: false,
 
                 actualPage: null,
