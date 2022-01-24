@@ -66,7 +66,7 @@ const DevicesTable = () => {
         
 
         // eslint-disable-next-line
-    }, [ logged, permissions, page, search ]);
+    }, [ logged, page, search ]);
 
     return (
         <div className='table__container'>
