@@ -183,55 +183,30 @@ const FormUser = ({ isEdit }) => {
                         </div>
                     </div>
 
-                    <div className='form__field'>
-                        <label
-                            className='form__label'
-                        >{ isEdit ? 'Contraseña anterior': 'Contraseña:'} </label>
-                        <div className='form__container--input'>
-                            <i 
-                                className={`fas fa-eye fadein form__icon form__icon--info ${ showpassword ? 'icon-hide' : 'icon-show'}`}
-                                onClick={ () => setShowpassword(!showpassword ) }
-                            ></i>
-                            <i 
-                                className={`fas fa-eye-slash fadein form__icon form__icon--info icon--hide ${showpassword ? 'icon-show' : 'icon-hide'}`}
-                                onClick={ () => setShowpassword( !showpassword ) }
-                            ></i>
-                            <input 
-                                type={`${showpassword ? 'text' : 'password'}`}
-                                className='form__input form__input--info'
-                                placeholder="Mínimo 8 caracteres"
-                                name="password"
-                                value={ password }
-                                onChange={ handleInputChange }
-                            />
-                        </div>
-                    </div>
-
-                    { isEdit ? 
+                    { !isEdit ?
                         <div className='form__field'>
-                        <label
-                            className='form__label'
-                        >Nueva contraseña: </label>
-                        <div className='form__container--input'>
-                            <i 
-                                className={`fas fa-eye fadein form__icon form__icon--info ${ showpassword ? 'icon-hide' : 'icon-show'}`}
-                                onClick={ () => setShowpassword(!showpassword ) }
-                            ></i>
-                            <i 
-                                className={`fas fa-eye-slash fadein form__icon form__icon--info icon--hide ${showpassword ? 'icon-show' : 'icon-hide'}`}
-                                onClick={ () => setShowpassword( !showpassword ) }
-                            ></i>
-                            <input 
-                                type={`${showpassword ? 'text' : 'password'}`}
-                                className='form__input form__input--info'
-                                placeholder="Mínimo 8 caracteres"
-                                name="newPassword"
-                                value={ newPassword }
-                                onChange={ handleInputChange }
-                            />
+                            <label
+                                className='form__label'
+                            >Contraseña:</label>
+                            <div className='form__container--input'>
+                                <i 
+                                    className={`fas fa-eye fadein form__icon form__icon--info ${ showpassword ? 'icon-hide' : 'icon-show'}`}
+                                    onClick={ () => setShowpassword(!showpassword ) }
+                                ></i>
+                                <i 
+                                    className={`fas fa-eye-slash fadein form__icon form__icon--info icon--hide ${showpassword ? 'icon-show' : 'icon-hide'}`}
+                                    onClick={ () => setShowpassword( !showpassword ) }
+                                ></i>
+                                <input 
+                                    type={`${showpassword ? 'text' : 'password'}`}
+                                    className='form__input form__input--info'
+                                    placeholder="Mínimo 8 caracteres"
+                                    name="password"
+                                    value={ password }
+                                    onChange={ handleInputChange }
+                                />
+                            </div>
                         </div>
-                    </div>
-
                     : null
                     }
 
