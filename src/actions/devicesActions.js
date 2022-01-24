@@ -77,7 +77,8 @@ export const newDevice = ( device, idClient ) => {
                     });
                 }, 3000);
 
-                dispatch( getDevices(1, idClient ) );
+                dispatch( getDevices(1, '', idClient ) );
+                dispatch( closeModalDevice() );
             }
             
         } catch (error) {
