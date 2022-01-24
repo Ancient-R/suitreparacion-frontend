@@ -13,10 +13,10 @@ export const Alert = ( title, message, type ) => {
 // muestra una alerta de advertencia para cuando se quiere eliminar un usuario, cliente o dispositivo
 
     // recibe tres parametros un id, el dispatch y la función
-export const alertDelete = ( id, dispatch, deleteFun ) => {
+export const alertDelete = ( id, dispatch, deleteFun, text='Esta acción es irreversible' ) => {
     Swal.fire({
         title: '¿Estas seguro?',
-        text: "Esta acción es irreversible",
+        text: text,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

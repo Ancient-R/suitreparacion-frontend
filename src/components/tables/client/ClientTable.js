@@ -52,7 +52,7 @@ const ClientTable = () => {
     // función para eliminar datos
     const handleDeleteClient = ( client ) => {
         dispatch( activeClient( client ));
-        alertDelete( client._id, dispatch, deleteClient );
+        alertDelete( client._id, dispatch, deleteClient, 'Recuerda que al eliminar un cliente, automaticamente se borran sus dispositivos asociados' );
     }
 
     useEffect(() => {
