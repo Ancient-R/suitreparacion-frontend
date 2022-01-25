@@ -18,7 +18,7 @@ const NavBar = () => {
     const dispatch = useDispatch();
 
     // accediendo al state de auth
-    const { permissions } = useSelector( state => state.auth );
+    const { user, permissions } = useSelector( state => state.auth );
 
     // función para cerrar sesión
     const handleLogout = () => {
@@ -34,10 +34,15 @@ const NavBar = () => {
             <img 
                 src='assets/icons/logo_transparent.png'
                 alt="suit reparacion logo" 
-                className='logo'
+                className='logo navbar--logo'
             />
-
             <ul className='menu'>
+                <li className='menu__item'>
+                    <i className="fas fa-user-check menu__item--icon"></i>
+                    <p><b>{ user }</b>
+                    </p>
+                </li>
+
                 <NavLink 
                     to={ permissions !== 'administrador' ? '/permisos-denegados' : '/usuarios'}
                     className={ ({isActive}) => `${isActive ? 'active' :  ''}` }
