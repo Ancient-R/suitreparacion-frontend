@@ -37,6 +37,16 @@
     color: var(--light-color);
 }
 
+.menu__item--text{
+    padding-right: 25px;
+}
+
+.menu__item--user:hover{
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    cursor: not-allowed;
+
+}
 .active{
     background-color: var(--element-color-alt);
     color: var(--light-color);

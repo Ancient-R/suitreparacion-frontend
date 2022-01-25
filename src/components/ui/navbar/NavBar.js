@@ -37,9 +37,9 @@ const NavBar = () => {
                 className='logo navbar--logo'
             />
             <ul className='menu'>
-                <li className='menu__item'>
+                <li className='menu__item menu__item--user'>
                     <i className="fas fa-user-check menu__item--icon"></i>
-                    <p><b>{ user }</b>
+                    <p className='menu__item--text'><b>{ user }</b>
                     </p>
                 </li>
 
