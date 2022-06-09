@@ -104,6 +104,7 @@ export const newDevice = ( device, idClient ) => {
                 });
 
                 Alert('¡Correcto!', res.data.msg, 'success');
+                dispatch( getDevicesTotal() );
 
                 setTimeout(() => {
                     dispatch({
@@ -244,6 +245,7 @@ export const deleteDevice = ( id ) => {
                 });
 
                 Alert('¡Correcto!', res.data.msg, 'success');
+                dispatch( getDevicesTotal() );
 
                 setTimeout(() => {
                     dispatch({

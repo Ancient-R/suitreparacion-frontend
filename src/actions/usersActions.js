@@ -104,6 +104,8 @@ export const newUser = ( user ) => {
 
                 Alert('¡Correcto!', res.data.msg, 'success');
 
+                dispatch( getUsersTotal() );
+
                 setTimeout(() => {
                     dispatch({
                         type: OCULTAR_ALERTA
@@ -281,6 +283,7 @@ export const deleteUser = ( id ) => {
                 });
 
                 Alert('¡Correcto!', res.data.msg, 'success');
+                dispatch( getUsersTotal() );
 
                 setTimeout(() => {
                     dispatch({

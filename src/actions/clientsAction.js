@@ -5,6 +5,7 @@ import clientAxios from '../axios/axios';
 
 // helper para mostrar alertas
 import { Alert } from '../helpers/Alert';
+import { getDevicesTotal } from './devicesActions';
 
 // variable para la api
 const url = '/api/suitreparacion/clients';
@@ -104,6 +105,7 @@ export const newClient = ( client ) => {
                 });
 
                 Alert('¡Correcto!', res.data.msg, 'success');
+                dispatch( getClientsTotal() );
 
                 setTimeout(() => {
                     dispatch({
@@ -245,6 +247,8 @@ export const deleteClient = ( id ) => {
                 });
 
                 Alert('¡Correcto!', res.data.msg, 'success');
+                dispatch( getClientsTotal() );
+                dispatch( getDevicesTotal() );
 
                 setTimeout(() => {
                     dispatch({
