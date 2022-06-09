@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // estilos css
 import '../../UI.css';
 
-
 // acitions
 import { getStatusDevices } from '../../../../actions/devicesActions';
 

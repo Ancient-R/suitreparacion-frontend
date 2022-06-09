@@ -13,7 +13,7 @@ import FormClient from '../../../forms/client/FormClient';
 
 // actions
 import { closeModalClient } from '../../../../actions/clientsAction';
-import { logoutCleanDevices } from '../../../../actions/devicesActions';
+import { getDevicesTotal, logoutCleanDevices } from '../../../../actions/devicesActions';
 
 
 const ClientModal = () => {
@@ -30,7 +30,10 @@ const ClientModal = () => {
     const handleCloseModal = () => {
         dispatch( closeModalClient() );
         // limpia el state de dispositivos para que al momento de abrir la información de otro cliente, no se muestren los dispositivos cargados en el state
-        if( devices ) dispatch( logoutCleanDevices() );
+        if( devices ){
+             dispatch( logoutCleanDevices() )
+             dispatch( getDevicesTotal() );
+        };
     }
 
     return (
