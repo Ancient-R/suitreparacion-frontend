@@ -14,6 +14,7 @@ export const validateEmail = email => {
 
 // expresión regular para validar números de teléfono
 export const validatePhone = phone => {
+    // eslint-disable-next-line
     const regPhone = /^(\(\+?\d{2,3}\)[\*|\s|\-|\.]?(([\d][\*|\s|\-|\.]?){6})(([\d][\s|\-|\.]?){2})?|(\+?[\d][\s|\-|\.]?){8}(([\d][\s|\-|\.]?){2}(([\d][\s|\-|\.]?){2})?)?)$/
     return regPhone.test( phone ) ? true : false;
 }

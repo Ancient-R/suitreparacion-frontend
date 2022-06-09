@@ -57,6 +57,7 @@ const DeviceGraph = () => {
 
     useEffect( () => {
         if( logged ) dispatch( getStatusDevices() );
+        // eslint-disable-next-line
     }, []);
     return (
 

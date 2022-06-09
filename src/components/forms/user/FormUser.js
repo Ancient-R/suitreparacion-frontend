@@ -34,7 +34,7 @@ const FormUser = ({ isEdit }) => {
         permissions: isEditandActive ? user.permissions : 'administrador',
         status: isEditandActive ? user.status : 'activo',
     });
-    const { name, address, phone, email, username, password, newPassword, permissions, status } = formValues;
+    const { name, address, phone, email, username, password, permissions, status } = formValues;
 
     // dispatch para los actions
     const dispatch = useDispatch();

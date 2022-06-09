@@ -55,10 +55,10 @@ const DevicesTable = () => {
     useEffect( () => {
 
         // verifica que exista una busqueda y un cliente, esto es útil para cuando un "administrador o recepcionista" quieran agregar un nuevo dispositivo a un cliente
-        if( client && search === '' || client && search !== '' ) dispatch( getDevices( page, search, client._id ));
+        if( (client && search === '') || ( client && search !== '') ) dispatch( getDevices( page, search, client._id ));
 
         // verifica que exista una busqueda, pero no un cliente, esto es útil para cuando un "tecnico" necesite actualizar un dispositivo, debido a que ellos no pueden agregar, solo actualizar información
-        if( !client && search === '' || !client && search !=='' ) dispatch( getDevices(page, search, null ));
+        if( ( !client && search === '' ) || ( !client && search !=='' ) ) dispatch( getDevices(page, search, null ));
 
 
         if( logged && !client && search === '' ) dispatch( getDevices( page, search, null ) );
